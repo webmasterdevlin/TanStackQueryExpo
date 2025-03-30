@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  Animated,
+  Easing,
 } from "react-native";
 import { Link } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
@@ -17,6 +19,7 @@ export default function Polling() {
   const [intervalMs, setIntervalMs] = useState(10000);
   const [inputValue, setInputValue] = useState(String(10000));
   const [isValidInput, setIsValidInput] = useState(true);
+  const pulseAnim = useState(new Animated.Value(1))[0];
 
   const handleIntervalChange = (value: string) => {
     setInputValue(value);
@@ -51,6 +54,45 @@ export default function Polling() {
     refetchInterval: intervalMs,
   });
 
+  // Create a pulsing animation effect when fetching
+  useEffect(() => {
+    let animationLoop: any;
+
+    if (todoListQuery.isFetching) {
+      // Start pulsing animation
+      animationLoop = Animated.loop(
+        Animated.sequence([
+          Animated.timing(pulseAnim, {
+            toValue: 1.5,
+            duration: 500,
+            easing: Easing.ease,
+            useNativeDriver: true,
+          }),
+          Animated.timing(pulseAnim, {
+            toValue: 1,
+            duration: 500,
+            easing: Easing.ease,
+            useNativeDriver: true,
+          }),
+        ])
+      );
+      animationLoop.start();
+    } else {
+      // Reset animation
+      Animated.timing(pulseAnim, {
+        toValue: 1,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    }
+
+    return () => {
+      if (animationLoop) {
+        animationLoop.stop();
+      }
+    };
+  }, [todoListQuery.isFetching]);
+
   return (
     <View className="flex-1 p-4">
       <Text className="text-xl font-bold mb-4">
@@ -84,11 +126,23 @@ export default function Polling() {
         {todoListQuery.isFetching && (
           <Text className="text-gray-500">Fetching new data...</Text>
         )}
-        <View
-          className={cn(
-            "ml-2.5 h-2.5 w-2.5 rounded-full",
-            todoListQuery.isFetching ? "bg-green-500" : "bg-transparent"
-          )}
+        <Animated.View
+          style={{
+            transform: [{ scale: pulseAnim }],
+            marginLeft: 10,
+            height: 12,
+            width: 12,
+            borderRadius: 6,
+            backgroundColor: todoListQuery.isFetching
+              ? "#22c55e"
+              : "transparent",
+            borderWidth: todoListQuery.isFetching ? 0 : 0,
+            shadowColor: "#22c55e",
+            shadowOffset: { width: 0, height: 0 },
+            shadowOpacity: todoListQuery.isFetching ? 0.8 : 0,
+            shadowRadius: 6,
+            elevation: todoListQuery.isFetching ? 4 : 0,
+          }}
         />
       </View>
 

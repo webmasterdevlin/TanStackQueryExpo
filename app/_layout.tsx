@@ -63,7 +63,7 @@ export default function RootLayout() {
               }}
             />
             <Drawer.Screen
-              name="Prefetching"
+              name="prefetching"
               options={{
                 drawerLabel: "Prefetching",
                 title: "movies",
@@ -77,7 +77,7 @@ export default function RootLayout() {
               }}
             />
             <Drawer.Screen
-              name="Deduping"
+              name="deduping"
               options={{
                 drawerLabel: "Deduping",
                 drawerIcon: ({ color, size }) => (
@@ -86,7 +86,7 @@ export default function RootLayout() {
               }}
             />
             <Drawer.Screen
-              name="OptimisticUpdateCache"
+              name="optimistic-update-cache"
               options={{
                 drawerLabel: "Optimistic Update",
                 drawerIcon: ({ color, size }) => (
@@ -95,7 +95,7 @@ export default function RootLayout() {
               }}
             />
             <Drawer.Screen
-              name="Polling"
+              name="polling"
               options={{
                 drawerLabel: "Polling",
                 drawerIcon: ({ color, size }) => (
@@ -108,7 +108,7 @@ export default function RootLayout() {
               }}
             />
             <Drawer.Screen
-              name="Pagination"
+              name="pagination"
               options={{
                 drawerLabel: "Pagination",
                 drawerIcon: ({ color, size }) => (
@@ -117,7 +117,7 @@ export default function RootLayout() {
               }}
             />
             <Drawer.Screen
-              name="InfiniteScrolling"
+              name="infinite-scrolling"
               options={{
                 drawerLabel: "Infinite Scrolling",
                 drawerIcon: ({ color, size }) => (
@@ -126,7 +126,7 @@ export default function RootLayout() {
               }}
             />
             <Drawer.Screen
-              name="NewTodo"
+              name="new-todo"
               options={{ drawerItemStyle: { display: "none" } }}
             />
             <Drawer.Screen

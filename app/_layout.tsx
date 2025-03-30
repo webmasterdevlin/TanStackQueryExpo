@@ -62,6 +62,77 @@ export default function RootLayout() {
                 ),
               }}
             />
+            <Drawer.Screen
+              name="Prefetching"
+              options={{
+                drawerLabel: "Prefetching",
+                title: "movies",
+                drawerIcon: ({ color, size }) => (
+                  <Ionicons
+                    name="trail-sign-outline"
+                    size={size}
+                    color={color}
+                  />
+                ),
+              }}
+            />
+            <Drawer.Screen
+              name="Deduping"
+              options={{
+                drawerLabel: "Deduping",
+                drawerIcon: ({ color, size }) => (
+                  <Ionicons name="cut-outline" size={size} color={color} />
+                ),
+              }}
+            />
+            <Drawer.Screen
+              name="OptimisticUpdateCache"
+              options={{
+                drawerLabel: "Optimistic Update",
+                drawerIcon: ({ color, size }) => (
+                  <Ionicons name="flash-outline" size={size} color={color} />
+                ),
+              }}
+            />
+            <Drawer.Screen
+              name="Polling"
+              options={{
+                drawerLabel: "Polling",
+                drawerIcon: ({ color, size }) => (
+                  <Ionicons
+                    name="arrow-down-outline"
+                    size={size}
+                    color={color}
+                  />
+                ),
+              }}
+            />
+            <Drawer.Screen
+              name="Pagination"
+              options={{
+                drawerLabel: "Pagination",
+                drawerIcon: ({ color, size }) => (
+                  <Ionicons name="book-outline" size={size} color={color} />
+                ),
+              }}
+            />
+            <Drawer.Screen
+              name="InfiniteScrolling"
+              options={{
+                drawerLabel: "Infinite Scrolling",
+                drawerIcon: ({ color, size }) => (
+                  <Ionicons name="infinite-outline" size={size} color={color} />
+                ),
+              }}
+            />
+            <Drawer.Screen
+              name="NewTodo"
+              options={{ drawerItemStyle: { display: "none" } }}
+            />
+            <Drawer.Screen
+              name="+not-found"
+              options={{ drawerItemStyle: { display: "none" } }}
+            />
           </Drawer>
         </GestureHandlerRootView>
         <StatusBar style="auto" />

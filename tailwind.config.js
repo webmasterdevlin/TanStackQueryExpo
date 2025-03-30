@@ -21,4 +21,7 @@ module.exports = {
     require("@tailwindcss/aspect-ratio"),
     require("@tailwindcss/container-queries"),
   ],
+  corePlugin: {
+    textOpacity: true,
+  },
 };

@@ -1,20 +1,18 @@
-import axios from "axios";
 import { Report } from "../models";
+import { api } from "@/http-client/api-config";
 
-export class ReportService {
-  private baseUrl = "http://localhost:8080";
+const endPoint = "reports";
 
-  getReportById = async (id: number): Promise<Report> => {
-    const response = await axios.get<Report>(`${this.baseUrl}/reports/${id}`);
+const reportService = {
+  async getReportById(id: number): Promise<Report> {
+    const response = await api.get<Report>(`${endPoint}/${id}`);
     return response.data;
-  };
+  },
 
-  getReports = async (): Promise<Array<Report>> => {
-    const response = await axios.get<Array<Report>>(`${this.baseUrl}/reports`);
+  async getReports(): Promise<Array<Report>> {
+    const response = await api.get<Array<Report>>(endPoint);
     return response.data;
-  };
-}
+  },
+};
 
-// Create a singleton instance
-const reportService = new ReportService();
 export default reportService;

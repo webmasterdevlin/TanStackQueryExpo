@@ -8,18 +8,19 @@ import {
   Alert,
   Animated,
   Easing,
+  Platform,
 } from "react-native";
 import { Link } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 import { names } from "../state/server/queryKey";
-import { todoService } from "../services/todo";
-import { cn } from "../utilities/style";
+import todoService from "../services/todo";
 
 export default function Polling() {
   const [intervalMs, setIntervalMs] = useState(10000);
   const [inputValue, setInputValue] = useState(String(10000));
   const [isValidInput, setIsValidInput] = useState(true);
   const pulseAnim = useState(new Animated.Value(1))[0];
+  const opacityAnim = useState(new Animated.Value(1))[0];
 
   const handleIntervalChange = (value: string) => {
     setInputValue(value);
@@ -51,16 +52,17 @@ export default function Polling() {
   const todoListQuery = useQuery({
     queryKey: [names.todos],
     queryFn: todoService.getTodos,
-    refetchInterval: intervalMs,
+    refetchInterval: Number(inputValue),
   });
 
   // Create a pulsing animation effect when fetching
   useEffect(() => {
-    let animationLoop: any;
+    let scaleAnimation: any;
+    let opacityAnimation: any;
 
     if (todoListQuery.isFetching) {
-      // Start pulsing animation
-      animationLoop = Animated.loop(
+      // Scale animation
+      scaleAnimation = Animated.loop(
         Animated.sequence([
           Animated.timing(pulseAnim, {
             toValue: 1.5,
@@ -76,22 +78,87 @@ export default function Polling() {
           }),
         ])
       );
-      animationLoop.start();
+
+      // Opacity animation - works better for web
+      opacityAnimation = Animated.loop(
+        Animated.sequence([
+          Animated.timing(opacityAnim, {
+            toValue: 0.4,
+            duration: 500,
+            easing: Easing.ease,
+            useNativeDriver: true,
+          }),
+          Animated.timing(opacityAnim, {
+            toValue: 1,
+            duration: 500,
+            easing: Easing.ease,
+            useNativeDriver: true,
+          }),
+        ])
+      );
+
+      scaleAnimation.start();
+      opacityAnimation.start();
     } else {
-      // Reset animation
-      Animated.timing(pulseAnim, {
-        toValue: 1,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
+      // Reset animations
+      Animated.parallel([
+        Animated.timing(pulseAnim, {
+          toValue: 1,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacityAnim, {
+          toValue: 1,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+      ]).start();
     }
 
     return () => {
-      if (animationLoop) {
-        animationLoop.stop();
+      if (scaleAnimation) {
+        scaleAnimation.stop();
+      }
+      if (opacityAnimation) {
+        opacityAnimation.stop();
       }
     };
   }, [todoListQuery.isFetching]);
+
+  // Helper function for cross-platform styling
+  const getIndicatorStyle = () => {
+    const baseStyle = {
+      transform: [{ scale: pulseAnim }],
+      opacity: opacityAnim,
+      marginLeft: 10,
+      height: 12,
+      width: 12,
+      borderRadius: 6,
+      backgroundColor: todoListQuery.isFetching ? "#22c55e" : "transparent",
+    };
+
+    // Add platform-specific styling
+    if (Platform.OS === "android") {
+      return {
+        ...baseStyle,
+        elevation: todoListQuery.isFetching ? 4 : 0,
+      };
+    } else if (Platform.OS === "ios") {
+      return {
+        ...baseStyle,
+        shadowColor: "#22c55e",
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: todoListQuery.isFetching ? 0.8 : 0,
+        shadowRadius: 6,
+      };
+    } else {
+      // Web platform
+      return {
+        ...baseStyle,
+        boxShadow: todoListQuery.isFetching ? "0 0 6px #22c55e" : "none",
+      };
+    }
+  };
 
   return (
     <View className="flex-1 p-4">
@@ -123,27 +190,7 @@ export default function Polling() {
       )}
 
       <View className="flex-row items-center mb-4">
-        {todoListQuery.isFetching && (
-          <Text className="text-gray-500">Fetching new data...</Text>
-        )}
-        <Animated.View
-          style={{
-            transform: [{ scale: pulseAnim }],
-            marginLeft: 10,
-            height: 12,
-            width: 12,
-            borderRadius: 6,
-            backgroundColor: todoListQuery.isFetching
-              ? "#22c55e"
-              : "transparent",
-            borderWidth: todoListQuery.isFetching ? 0 : 0,
-            shadowColor: "#22c55e",
-            shadowOffset: { width: 0, height: 0 },
-            shadowOpacity: todoListQuery.isFetching ? 0.8 : 0,
-            shadowRadius: 6,
-            elevation: todoListQuery.isFetching ? 4 : 0,
-          }}
-        />
+        <Animated.View style={getIndicatorStyle()} />
       </View>
 
       <Text className="text-lg font-bold mt-2 mb-2">Todo List</Text>

@@ -1,19 +1,23 @@
 import axios from "axios";
 import { Todo } from "../models";
+import { Platform } from "react-native";
+import { api } from "@/http-client/api-config";
 
-const API_URL = "http://localhost:8080/todo-list";
+const endPoint = "todo-list";
 
-export const todoService = {
+const todoService = {
   async getTodos(): Promise<Todo[]> {
-    const response = await axios.get<Todo[]>(API_URL);
+    const response = await api.get<Todo[]>(endPoint);
     return response.data;
   },
 
   async postTodo(title: string): Promise<Todo> {
-    const response = await axios.post<Todo>(API_URL, {
+    const response = await api.post<Todo>(endPoint, {
       title,
       completed: false,
     });
     return response.data;
   },
 };
+
+export default todoService;

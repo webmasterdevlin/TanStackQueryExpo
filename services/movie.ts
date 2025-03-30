@@ -1,25 +1,23 @@
 import axios from "axios";
 import { Movie } from "../models";
-import { slow } from "./config";
+import { api } from "@/http-client/api-config";
 
-export class MovieService {
-  private baseUrl = "http://localhost:8080";
+const endPoint = "movies";
 
-  getMovieById = async (id: number): Promise<Movie> => {
-    const response = await axios.get<Movie>(`${this.baseUrl}/movies/${id}`);
+const movieService = {
+  async getMovieById(id: number): Promise<Movie> {
+    const response = await api.get<Movie>(`${endPoint}/${id}`);
     return response.data;
-  };
+  },
 
-  getMovies = async (): Promise<Array<Movie>> => {
-    const response = await axios.get<Array<Movie>>(`${this.baseUrl}/movies`);
+  async getMovies(): Promise<Array<Movie>> {
+    const response = await api.get<Array<Movie>>(endPoint);
     return response.data;
-  };
+  },
 
-  deleteMovie = async (id: number): Promise<void> => {
-    await axios.delete(`${this.baseUrl}/movies/${id}`);
-  };
-}
+  async deleteMovie(id: number): Promise<void> {
+    await api.delete(`${endPoint}/${id}`);
+  },
+};
 
-// Create a singleton instance
-const movieService = new MovieService();
 export default movieService;

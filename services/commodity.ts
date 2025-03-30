@@ -1,21 +1,19 @@
 import axios from "axios";
 import { CommodityPaginate } from "../models";
-import { slow } from "./config";
+import { api } from "@/http-client/api-config";
 
-export class CommodityService {
-  private baseUrl = "http://localhost:8080";
+const endPoint = "commodities";
 
-  getCommodities = async (
+const commodityService = {
+  async getCommodities(
     page: number,
     perPage: number
-  ): Promise<CommodityPaginate> => {
-    const response = await axios.get<CommodityPaginate>(
-      `${this.baseUrl}/commodities?_page=${page}&_per_page=${perPage}`
+  ): Promise<CommodityPaginate> {
+    const response = await api.get<CommodityPaginate>(
+      `${endPoint}?_page=${page}&_per_page=${perPage}`
     );
     return response.data;
-  };
-}
+  },
+};
 
-// Create a singleton instance
-const commodityService = new CommodityService();
 export default commodityService;

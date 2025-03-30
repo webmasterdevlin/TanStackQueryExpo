@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, View, TextInput, Button, StyleSheet } from "react-native";
+import { Text, View, TextInput, Button } from "react-native";
 import { useTodoMutation } from "../state/server/mutations/todoMutations";
 
 export default function NewTodo() {
@@ -14,11 +14,11 @@ export default function NewTodo() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Create a new todo</Text>
-      <View style={styles.form}>
+    <View className="flex-1 p-4">
+      <Text className="text-2xl font-bold mb-4">Create a new todo</Text>
+      <View className="space-y-3">
         <TextInput
-          style={styles.input}
+          className="border border-gray-300 rounded p-2"
           value={todoValue}
           onChangeText={setTodoValue}
           placeholder="Enter something"
@@ -30,7 +30,7 @@ export default function NewTodo() {
         />
         {addTodoMutation.isPending && <Text>Adding todo...</Text>}
         {addTodoMutation.isError && (
-          <Text style={styles.errorText}>
+          <Text className="text-red-500">
             Error: {addTodoMutation.error.message}
           </Text>
         )}
@@ -38,27 +38,3 @@ export default function NewTodo() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 16,
-  },
-  form: {
-    gap: 12,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 4,
-    padding: 8,
-  },
-  errorText: {
-    color: "red",
-  },
-});

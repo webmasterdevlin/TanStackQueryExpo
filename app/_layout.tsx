@@ -16,10 +16,12 @@ import { Drawer } from "expo-router/drawer";
 import { Colors } from "@/constants/Colors";
 import ReactQueryDevTools from "@/components/providers/ReactQueryDevTools";
 import TanStackProvider from "@/components/providers/TanStackProvider";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
-
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
@@ -37,7 +39,7 @@ export default function RootLayout() {
   }
 
   return (
-    <TanStackProvider>
+    <QueryClientProvider client={queryClient}>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <Drawer
@@ -67,7 +69,7 @@ export default function RootLayout() {
               name="prefetching"
               options={{
                 drawerLabel: "Prefetching",
-                title: "movies",
+                title: "movie list",
                 drawerIcon: ({ color, size }) => (
                   <Ionicons
                     name="trail-sign-outline"
@@ -139,6 +141,6 @@ export default function RootLayout() {
         <StatusBar style="auto" />
       </ThemeProvider>
       <ReactQueryDevTools />
-    </TanStackProvider>
+    </QueryClientProvider>
   );
 }

@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text } from "react-native";
 import { useEffect } from "react";
 import { useDedupeQuery } from "@/state/server/queries/dedupeQueries";
 import dedupeService from "@/services/dedupe";

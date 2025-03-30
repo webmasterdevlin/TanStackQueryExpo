@@ -76,22 +76,17 @@
   "todo-list": [
     {
       "id": "ca5d",
-      "title": "eat",
+      "title": "buy groceries",
       "completed": false
     },
     {
       "id": "a070",
-      "title": "Kli",
+      "title": "make kimchi",
       "completed": false
     },
     {
       "id": "182e",
-      "title": "haha",
-      "completed": false
-    },
-    {
-      "id": "332b",
-      "title": "haha2",
+      "title": "clean the toilet",
       "completed": false
     }
   ],

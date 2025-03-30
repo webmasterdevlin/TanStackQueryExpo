@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { names } from "../queryKey";
-import { todoService } from "@/services/todo";
+import todoService from "@/services/todo";
 
 // reusable mutation
 export function useTodoMutation() {

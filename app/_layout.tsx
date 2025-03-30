@@ -10,17 +10,14 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useColorScheme } from "@/hooks/useColorScheme";
-import Clipboard from "expo-clipboard";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { DevToolsBubble } from "react-native-react-query-devtools";
 import { Colors } from "@/constants/Colors";
+import ReactQueryDevTools from "@/components/providers/ReactQueryDevTools";
+import TanStackProvider from "@/components/providers/TanStackProvider";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
-
-const queryClient = new QueryClient();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -38,21 +35,8 @@ export default function RootLayout() {
     return null;
   }
 
-  // Define your copy function based on your platform
-  const onCopy = async (text: string) => {
-    try {
-      // For Expo:
-      await Clipboard.setStringAsync(text);
-      // OR for React Native CLI:
-      // await Clipboard.setString(text);
-      return true;
-    } catch {
-      return false;
-    }
-  };
-
   return (
-    <QueryClientProvider client={queryClient}>
+    <TanStackProvider>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <Drawer
@@ -82,7 +66,7 @@ export default function RootLayout() {
         </GestureHandlerRootView>
         <StatusBar style="auto" />
       </ThemeProvider>
-      <DevToolsBubble onCopy={onCopy} />
-    </QueryClientProvider>
+      <ReactQueryDevTools />
+    </TanStackProvider>
   );
 }

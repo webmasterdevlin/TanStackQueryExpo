@@ -66,10 +66,10 @@ export default function RootLayout() {
               }}
             />
             <Drawer.Screen
-              name="prefetching"
+              name="prefetching/index"
               options={{
                 drawerLabel: "Prefetching",
-                title: "movie list",
+                title: "reports",
                 drawerIcon: ({ color, size }) => (
                   <Ionicons
                     name="trail-sign-outline"
@@ -78,6 +78,10 @@ export default function RootLayout() {
                   />
                 ),
               }}
+            />
+            <Drawer.Screen
+              name="prefetching/[id]"
+              options={{ drawerItemStyle: { display: "none" } }}
             />
             <Drawer.Screen
               name="deduping"
@@ -89,13 +93,18 @@ export default function RootLayout() {
               }}
             />
             <Drawer.Screen
-              name="optimistic-update-cache"
+              name="optimistic-update-cache/index"
               options={{
                 drawerLabel: "Optimistic Update",
+                title: "movies",
                 drawerIcon: ({ color, size }) => (
                   <Ionicons name="flash-outline" size={size} color={color} />
                 ),
               }}
+            />
+            <Drawer.Screen
+              name="optimistic-update-cache/[id]"
+              options={{ drawerItemStyle: { display: "none" } }}
             />
             <Drawer.Screen
               name="polling"

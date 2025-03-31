@@ -6,7 +6,7 @@ import Spinner from "@/components/Spinner";
 import { useDedupeQuery } from "@/state/server/queries/dedupeQueries";
 import dedupeService from "@/services/dedupe";
 
-export default function Deduping() {
+export default function DedupingScreen() {
   // Reusable query - TanStack Query handles deduplication automatically
   const myQuery = useDedupeQuery();
 

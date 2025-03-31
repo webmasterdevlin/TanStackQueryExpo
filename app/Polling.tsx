@@ -15,7 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 import { names } from "../state/server/queryKey";
 import todoService from "../services/todo";
 
-export default function Polling() {
+export default function PollingScreen() {
   const [intervalMs, setIntervalMs] = useState(10000);
   const [inputValue, setInputValue] = useState(String(10000));
   const [isValidInput, setIsValidInput] = useState(true);

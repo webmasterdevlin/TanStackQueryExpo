@@ -5,7 +5,7 @@ import { names } from "../state/server/queryKey";
 import commodityService from "../services/commodity";
 import Spinner from "../components/Spinner";
 
-export default function Pagination() {
+export default function PaginationScreen() {
   const [page, setPage] = useState(1);
   const pageSize = 10;
 

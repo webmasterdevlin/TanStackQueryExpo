@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Text, View, TextInput, Button } from "react-native";
 import { useTodoMutation } from "../state/server/mutations/todoMutations";
 
-export default function NewTodo() {
+export default function NewTodoScreen() {
   const [todoValue, setTodoValue] = useState("");
   const addTodoMutation = useTodoMutation();
 

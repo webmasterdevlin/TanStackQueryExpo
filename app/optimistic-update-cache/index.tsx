@@ -13,7 +13,7 @@ import movieService from "@/services/movie";
 import { names } from "@/state/server/queryKey";
 import { Movie } from "@/models";
 
-export default function OptimisticUpdateCacheScreen() {
+export default function MoviesScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
 

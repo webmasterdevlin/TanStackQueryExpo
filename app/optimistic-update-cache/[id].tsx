@@ -18,7 +18,7 @@ export default function MovieScreen() {
   const movieId = parseInt(id || "0");
 
   const goBack = () => {
-    router.back();
+    router.replace("/optimistic-update-cache");
   };
 
   const setMovieId = (id: number) => {

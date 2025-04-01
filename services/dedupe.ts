@@ -1,17 +1,14 @@
+import { api } from "@/http-client/api-config";
 import axios from "axios";
 
 const dedupeService = {
   getPosts: async () => {
-    const response = await axios.get(
-      `https://jsonplaceholder.typicode.com/posts`
-    );
+    const response = await api.get("posts");
     return response.data;
   },
 
   getUsers: async () => {
-    const response = await axios.get(
-      `https://jsonplaceholder.typicode.com/users`
-    );
+    const response = await api.get("users");
     return response.data;
   },
 };

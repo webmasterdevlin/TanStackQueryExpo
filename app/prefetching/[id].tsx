@@ -10,7 +10,7 @@ export default function ReportScreen() {
   const numericId = parseInt(id, 10);
 
   const goBack = () => {
-    router.back();
+    router.replace("/prefetching");
   };
 
   const reportQuery = useQuery({

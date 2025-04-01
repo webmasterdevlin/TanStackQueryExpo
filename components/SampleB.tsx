@@ -20,8 +20,10 @@ export default function SampleB() {
 
   return (
     <View className="p-4">
-      <Text className="text-xl font-bold mb-2">Sample-B Component</Text>
-      {myQuery.status === "pending" && <Spinner />}
+      <View className="p-4 flex-row items-center">
+        <Text className="text-xl font-bold mb-2">Sample-B Component</Text>
+        {myQuery.status === "pending" && <Spinner />}
+      </View>
     </View>
   );
 }

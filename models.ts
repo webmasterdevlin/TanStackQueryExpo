@@ -16,7 +16,6 @@ export interface Todo {
   completed: boolean;
 }
 
-
 export interface Album {
   userId: number;
   id: number;
@@ -41,7 +40,7 @@ export interface CommodityPaginate {
 }
 
 export interface Commodity {
-  id: string;
+  id: number;
   name: string;
   price: number;
   quantity: number;

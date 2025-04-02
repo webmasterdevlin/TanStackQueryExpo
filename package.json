@@ -4,13 +4,17 @@
   "version": "1.0.0",
   "scripts": {
     "start": "expo start --reset-cache",
+    "dev":"concurrently \"expo start \" \"backend\"",
+    "dev:ios":"concurrently \"expo start --ios\" \"backend\"",
+    "dev:android":"concurrently \"expo start --android\" \"backend\"",
+    "dev:web":"concurrently \"expo start --web\" \"backend\"",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint",
-    "backend": "json-server --delay=3000 --port=8080 json-server/db.json"
+    "backend": "json-server --port=8080 json-server/db.json"
   },
   "jest": {
     "preset": "jest-expo"
@@ -59,7 +63,7 @@
     "@types/jest": "^29.5.12",
     "@types/react": "~18.3.12",
     "@types/react-test-renderer": "^18.3.0",
-    "@webmasterdevlin/json-server": "^1.0.1",
+    "@webmasterdevlin/json-server": "^1.0.6",
     "babel-plugin-module-resolver": "^5.0.2",
     "clsx": "^2.1.1",
     "concurrently": "^9.1.2",

@@ -1,15 +1,22 @@
-import { useState, useEffect } from 'react';
-import { Text, View, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { useState } from 'react';
+import { Text, View, TextInput, Alert } from 'react-native';
+import { LegendList } from '@legendapp/list';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
-import { names } from '../state/server/queryKey';
-import todoService from '../services/todo';
-import { cn } from '../utilities/style';
+import { cn } from '@/utilities/style';
+import todoService from '@/services/todo';
+import { names } from '@/state/server/queryKey';
 
 export default function PollingScreen() {
   const [intervalMs, setIntervalMs] = useState(10000);
   const [inputValue, setInputValue] = useState(String(10000));
   const [isValidInput, setIsValidInput] = useState(true);
+
+  const todoListQuery = useQuery({
+    queryKey: [names.todos],
+    queryFn: todoService.getTodos,
+    refetchInterval: Number(inputValue),
+  });
 
   const handleIntervalChange = (value: string) => {
     setInputValue(value);
@@ -23,24 +30,6 @@ export default function PollingScreen() {
     }
   };
 
-  const applyInterval = () => {
-    const newValue = Number(inputValue);
-    if (!isNaN(newValue) && newValue >= 1000 && newValue <= 10000) {
-      setIntervalMs(newValue);
-      setIsValidInput(true);
-    } else {
-      Alert.alert('Invalid Input', 'Please enter a value between 1000 and 10000 ms');
-      setInputValue(String(intervalMs));
-      setIsValidInput(true);
-    }
-  };
-
-  const todoListQuery = useQuery({
-    queryKey: [names.todos],
-    queryFn: todoService.getTodos,
-    refetchInterval: Number(inputValue),
-  });
-
   return (
     <View className="flex-1 p-4">
       <Text className="mb-4 text-xl font-bold">
@@ -52,13 +41,9 @@ export default function PollingScreen() {
         <TextInput
           value={inputValue}
           onChangeText={handleIntervalChange}
-          onEndEditing={applyInterval}
           keyboardType="numeric"
           className={`border ${isValidInput ? 'bg-white' : 'bg-red-200'} w-20 rounded border-gray-300 px-2 py-1 text-black`}
         />
-        <TouchableOpacity onPress={applyInterval} className="ml-2 rounded bg-blue-500 px-2 py-1">
-          <Text className="text-white">Apply</Text>
-        </TouchableOpacity>
       </View>
 
       {!isValidInput && (
@@ -72,19 +57,21 @@ export default function PollingScreen() {
         )}
       />
 
-      <Text className="mb-2 mt-2 text-lg font-bold">Todo List</Text>
+      <Text className="mb-4 mt-2 text-lg font-bold">Todo List</Text>
 
       <Link href="/new-todo" asChild>
-        <Text className="mb-4 text-violet-700">➕ Add new</Text>
+        <Text className="mb-4 text-violet-700 underline">Add new</Text>
       </Link>
 
-      <ScrollView>
-        {todoListQuery.data?.map((todo, i) => (
-          <Text key={todo.id} className="py-1">
-            {i + 1}. {todo.title}
+      <LegendList
+        data={todoListQuery.data || []}
+        keyExtractor={(item) => String(item.id)}
+        renderItem={({ item, index }) => (
+          <Text className="py-1">
+            {index + 1}. {item.title}
           </Text>
-        ))}
-      </ScrollView>
+        )}
+      />
     </View>
   );
 }

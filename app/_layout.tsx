@@ -131,7 +131,10 @@ export default function RootLayout() {
                 ),
               }}
             />
-            <Drawer.Screen name="new-todo" options={{ drawerItemStyle: { display: 'none' } }} />
+            <Drawer.Screen
+              name="new-todo"
+              options={{ drawerItemStyle: { display: 'none' }, title: '' }}
+            />
             <Drawer.Screen name="+not-found" options={{ drawerItemStyle: { display: 'none' } }} />
           </Drawer>
         </GestureHandlerRootView>

@@ -4,7 +4,7 @@ import {
   View,
   Image,
   TouchableOpacity,
-  ScrollView,
+  FlatList,
   ActivityIndicator,
 } from "react-native";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -56,78 +56,85 @@ export default function MoviesScreen() {
     deleteMovieMutation.mutate(id);
   };
 
-  return (
-    <ScrollView className="flex-1 p-4">
-      <Text className="text-2xl font-bold mb-2">Watch History</Text>
-      <Text className="text-lg mb-4">
-        This week
-        {moviesQuery.isFetching && (
-          <Text className="text-gray-500"> (fetching in the background)</Text>
-        )}
-      </Text>
+  const renderMovieItem = ({ item: movie }: { item: Movie }) => (
+    <View key={movie.id} className="flex-row items-start gap-6 mb-6">
+      <Image
+        source={{ uri: movie.imageUrl }}
+        className="w-[150px] h-[225px]"
+        alt={movie.title}
+      />
+      <View className="flex-1 mt-2">
+        <View className="flex-row justify-between items-start mb-1">
+          <Link
+            href={{
+              pathname: "/optimistic-update-cache/[id]",
+              params: { id: movie.id },
+            }}
+          >
+            <Text
+              className={
+                queryClient.getQueryData([names.movie, movie.id])
+                  ? "font-bold text-indigo-500"
+                  : ""
+              }
+            >
+              {movie.title} ({movie.year})
+            </Text>
+          </Link>
+          <TouchableOpacity onPress={() => handleDelete(movie.id)}>
+            <Text className="text-red-500 ml-4">❌</Text>
+          </TouchableOpacity>
+        </View>
+        <Text className="text-orange-500">rating: {movie.rate}/10</Text>
+        <Text className="mt-1">{movie.description}</Text>
+        <Text className="mt-1">Director: {movie.director}</Text>
+        <Text className="mt-1">Duration: {movie.duration}</Text>
+      </View>
+    </View>
+  );
 
-      <View className="flex items-center justify-center">
-        {moviesQuery.status === "pending" && (
+  return (
+    <View className="flex-1 p-4">
+      <View className="mb-4">
+        <Text className="text-2xl font-bold mb-2">Watch History</Text>
+        <Text className="text-lg">
+          This week
+          {moviesQuery.isFetching && (
+            <Text className="text-gray-500"> (fetching in the background)</Text>
+          )}
+        </Text>
+      </View>
+
+      {moviesQuery.status === "pending" && (
+        <View className="flex items-center justify-center">
           <Text>
             Loading. Please wait.{" "}
             <Text className="text-orange-300">(one-time only)</Text>
           </Text>
-        )}
+        </View>
+      )}
 
-        {moviesQuery.status === "error" && (
+      {moviesQuery.status === "error" && (
+        <View className="flex items-center justify-center">
           <Text>Error: {moviesQuery.error.message}</Text>
-        )}
+        </View>
+      )}
 
-        {moviesQuery.status === "success" && (
-          <View className="w-full mb-4">
-            {moviesQuery.data.map((movie) => (
-              <View key={movie.id} className="flex-row items-start gap-6 mb-6">
-                <Image
-                  source={{ uri: movie.imageUrl }}
-                  className="w-[150px] h-[225px]"
-                  alt={movie.title}
-                />
-                <View className="flex-1 mt-2">
-                  <View className="flex-row justify-between items-start mb-1">
-                    <Link
-                      href={{
-                        pathname: "/optimistic-update-cache/[id]",
-                        params: { id: movie.id },
-                      }}
-                    >
-                      <Text
-                        className={
-                          queryClient.getQueryData([names.movie, movie.id])
-                            ? "font-bold text-indigo-500"
-                            : ""
-                        }
-                      >
-                        {movie.title} ({movie.year})
-                      </Text>
-                    </Link>
-                    <TouchableOpacity onPress={() => handleDelete(movie.id)}>
-                      <Text className="text-red-500 ml-4">❌</Text>
-                    </TouchableOpacity>
-                  </View>
-                  <Text className="text-orange-500">
-                    rating: {movie.rate}/10
-                  </Text>
-                  <Text className="mt-1">{movie.description}</Text>
-                  <Text className="mt-1">Director: {movie.director}</Text>
-                  <Text className="mt-1">Duration: {movie.duration}</Text>
-                </View>
-              </View>
-            ))}
-          </View>
-        )}
+      {moviesQuery.status === "success" && (
+        <FlatList
+          data={moviesQuery.data}
+          renderItem={renderMovieItem}
+          keyExtractor={(movie) => movie.id.toString()}
+          contentContainerStyle={{ paddingBottom: 16 }}
+        />
+      )}
 
-        {deleteMovieMutation.isPending && (
-          <View className="flex-row items-center">
-            <ActivityIndicator size="small" color="#f97316" />
-            <Text className="ml-2">Deleting...</Text>
-          </View>
-        )}
-      </View>
-    </ScrollView>
+      {deleteMovieMutation.isPending && (
+        <View className="flex-row items-center justify-center">
+          <ActivityIndicator size="small" color="#f97316" />
+          <Text className="ml-2">Deleting...</Text>
+        </View>
+      )}
+    </View>
   );
 }

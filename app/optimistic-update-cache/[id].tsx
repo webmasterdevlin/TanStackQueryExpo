@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useQuery } from "@tanstack/react-query";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter, useFocusEffect } from "expo-router";
 import movieService from "@/services/movie";
 import { names } from "@/state/server/queryKey";
 import { Movie } from "@/models";
@@ -34,6 +34,16 @@ export default function MovieScreen() {
     queryFn: () => movieService.getMovieById(movieId),
     enabled: movieId > 0,
   });
+
+  // Refetch data when screen comes into focus
+  useFocusEffect(
+    React.useCallback(() => {
+      if (movieId > 0) {
+        movieQuery.refetch();
+      }
+      // Dependencies array includes movieId to refetch if ID changes
+    }, [movieId])
+  );
 
   if (movieQuery.status === "pending") {
     return (

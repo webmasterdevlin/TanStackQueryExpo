@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import { useQuery } from "@tanstack/react-query";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter, useFocusEffect } from "expo-router";
+import React from "react";
 import reportService from "@/services/report";
 import { names } from "@/state/server/queryKey";
 
@@ -18,6 +19,15 @@ export default function ReportScreen() {
     queryFn: () => reportService.getReportById(numericId),
     enabled: !isNaN(numericId) && numericId > 0,
   });
+
+  // Refetch data when screen comes into focus
+  useFocusEffect(
+    React.useCallback(() => {
+      if (!isNaN(numericId) && numericId > 0) {
+        reportQuery.refetch();
+      }
+    }, [numericId])
+  );
 
   return (
     <View className="flex-1 p-4">

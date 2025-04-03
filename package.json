@@ -3,7 +3,7 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
-    "start": "expo start --reset-cache",
+    "start": "expo start --reset-cache --localhost",
     "dev": "concurrently \"expo start \" \"npm run backend\"",
     "dev:ios": "concurrently \"expo start --ios\" \"npm run backend\"",
     "dev:android": "concurrently \"expo start --android\" \"npm run backend\"",

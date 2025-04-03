@@ -8,18 +8,13 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "expo-router";
+import { Link } from "expo-router";
 import movieService from "@/services/movie";
 import { names } from "@/state/server/queryKey";
 import { Movie } from "@/models";
 
 export default function MoviesScreen() {
-  const router = useRouter();
   const queryClient = useQueryClient();
-
-  const setMovieId = (id: number) => {
-    router.push(`/optimistic-update-cache/${id}`);
-  };
 
   const moviesQuery = useQuery<Movie[], Error>({
     queryKey: [names.movies],
@@ -94,7 +89,12 @@ export default function MoviesScreen() {
                 />
                 <View className="flex-1 mt-2">
                   <View className="flex-row justify-between items-start mb-1">
-                    <TouchableOpacity onPress={() => setMovieId(movie.id)}>
+                    <Link
+                      href={{
+                        pathname: "/optimistic-update-cache/[id]",
+                        params: { id: movie.id },
+                      }}
+                    >
                       <Text
                         className={
                           queryClient.getQueryData([names.movie, movie.id])
@@ -104,7 +104,7 @@ export default function MoviesScreen() {
                       >
                         {movie.title} ({movie.year})
                       </Text>
-                    </TouchableOpacity>
+                    </Link>
                     <TouchableOpacity onPress={() => handleDelete(movie.id)}>
                       <Text className="text-red-500 ml-4">❌</Text>
                     </TouchableOpacity>

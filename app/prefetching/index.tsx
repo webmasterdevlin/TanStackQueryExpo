@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, FlatList } from "react-native";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useRouter } from "expo-router";
 import reportService from "@/services/report";
@@ -34,13 +34,16 @@ export default function ReportsScreen() {
   };
 
   const renderReportItem = ({ item }: { item: Report }) => (
-    <TouchableOpacity
-      onPress={() => navigateToReport(item.id)}
+    <Link
+      href={{
+        pathname: "/prefetching/[id]",
+        params: { id: item.id },
+      }}
       onPressIn={() => handleOnMouseEnter(item.id)}
       className="py-3 border-b border-gray-200"
     >
       <Text className="text-lg text-blue-500">{item.title}</Text>
-    </TouchableOpacity>
+    </Link>
   );
 
   return (

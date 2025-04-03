@@ -1,26 +1,15 @@
 import { useState, useEffect } from 'react';
-import {
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  Alert,
-  Animated,
-  Easing,
-  Platform,
-} from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { names } from '../state/server/queryKey';
 import todoService from '../services/todo';
+import { cn } from '../utilities/style';
 
 export default function PollingScreen() {
   const [intervalMs, setIntervalMs] = useState(10000);
   const [inputValue, setInputValue] = useState(String(10000));
   const [isValidInput, setIsValidInput] = useState(true);
-  const pulseAnim = useState(new Animated.Value(1))[0];
-  const opacityAnim = useState(new Animated.Value(1))[0];
 
   const handleIntervalChange = (value: string) => {
     setInputValue(value);
@@ -52,111 +41,6 @@ export default function PollingScreen() {
     refetchInterval: Number(inputValue),
   });
 
-  // Create a pulsing animation effect when fetching
-  useEffect(() => {
-    let scaleAnimation: any;
-    let opacityAnimation: any;
-
-    if (todoListQuery.isFetching) {
-      // Scale animation
-      scaleAnimation = Animated.loop(
-        Animated.sequence([
-          Animated.timing(pulseAnim, {
-            toValue: 1.5,
-            duration: 500,
-            easing: Easing.ease,
-            useNativeDriver: true,
-          }),
-          Animated.timing(pulseAnim, {
-            toValue: 1,
-            duration: 500,
-            easing: Easing.ease,
-            useNativeDriver: true,
-          }),
-        ])
-      );
-
-      // Opacity animation - works better for web
-      opacityAnimation = Animated.loop(
-        Animated.sequence([
-          Animated.timing(opacityAnim, {
-            toValue: 0.4,
-            duration: 500,
-            easing: Easing.ease,
-            useNativeDriver: true,
-          }),
-          Animated.timing(opacityAnim, {
-            toValue: 1,
-            duration: 500,
-            easing: Easing.ease,
-            useNativeDriver: true,
-          }),
-        ])
-      );
-
-      scaleAnimation.start();
-      opacityAnimation.start();
-    } else {
-      // Reset animations
-      Animated.parallel([
-        Animated.timing(pulseAnim, {
-          toValue: 1,
-          duration: 200,
-          useNativeDriver: true,
-        }),
-        Animated.timing(opacityAnim, {
-          toValue: 1,
-          duration: 200,
-          useNativeDriver: true,
-        }),
-      ]).start();
-    }
-
-    return () => {
-      if (scaleAnimation) {
-        scaleAnimation.stop();
-      }
-      if (opacityAnimation) {
-        opacityAnimation.stop();
-      }
-    };
-  }, [todoListQuery.isFetching]);
-
-  // Helper function for cross-platform styling
-  const getIndicatorStyle = () => {
-    const baseStyle = {
-      transform: [{ scale: pulseAnim }],
-      opacity: opacityAnim,
-      marginLeft: 10,
-      height: 12,
-      width: 12,
-      borderRadius: 6,
-      backgroundColor: todoListQuery.isFetching ? '#22c55e' : 'transparent',
-    };
-
-    // Add platform-specific styling
-    if (Platform.OS === 'android') {
-      return {
-        ...baseStyle,
-        elevation: todoListQuery.isFetching ? 4 : 0,
-      };
-    } else if (Platform.OS === 'ios') {
-      return {
-        ...baseStyle,
-        shadowColor: '#22c55e',
-        shadowOffset: { width: 0, height: 0 },
-        shadowOpacity: todoListQuery.isFetching ? 0.8 : 0,
-        shadowRadius: 6,
-      };
-    } else {
-      // Web platform
-      return {
-        ...baseStyle,
-        boxShadow: todoListQuery.isFetching ? '0 0 6px #22c55e' : 'none',
-      };
-    }
-  };
-
   return (
     <View className="flex-1 p-4">
       <Text className="mb-4 text-xl font-bold">
@@ -181,9 +65,12 @@ export default function PollingScreen() {
         <Text className="mb-2 text-xs text-red-500">Enter a value between 1000-10000 ms</Text>
       )}
 
-      <View className="mb-4 flex-row items-center">
-        <Animated.View style={getIndicatorStyle()} />
-      </View>
+      <View
+        className={cn(
+          'ml-2.5 h-2.5 w-2.5 rounded-full',
+          todoListQuery.isFetching ? 'bg-green-500' : 'bg-transparent'
+        )}
+      />
 
       <Text className="mb-2 mt-2 text-lg font-bold">Todo List</Text>
 

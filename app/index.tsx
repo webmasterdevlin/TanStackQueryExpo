@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   StatusBar,
   useWindowDimensions,
+  Pressable,
 } from 'react-native';
 import { useState, useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -15,6 +16,7 @@ import Animated, {
   FadeInUp,
   useAnimatedStyle,
   useSharedValue,
+  withSpring,
   withRepeat,
   withSequence,
   withDelay,
@@ -43,7 +45,7 @@ export default function HomeScreen() {
     return interpolateColor(
       colorProgress.value,
       [0, 0.2, 0.4, 0.6, 0.8, 1],
-      ['#4338ca', '#3b82f6', '#06b6d4', '#10b981', '#8b5cf6', '#4338ca']
+      ['#4f46e5', '#3b82f6', '#06b6d4', '#0ea5e9', '#8b5cf6', '#4f46e5']
     );
   });
 
@@ -145,9 +147,9 @@ export default function HomeScreen() {
 
   return (
     <>
-      <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
+      <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
       <LinearGradient
-        colors={['#1e1b4b', '#312e81', '#4338ca']}
+        colors={['#e0f2fe', '#bfdbfe', '#93c5fd']}
         style={{
           position: 'absolute',
           left: 0,
@@ -168,20 +170,20 @@ export default function HomeScreen() {
             <Animated.View
               entering={FadeInUp.delay(300).springify()}
               className="absolute right-5 top-16">
-              <View className="h-24 w-24 rounded-full bg-indigo-500/20 blur-sm" />
+              <View className="h-24 w-24 rounded-full bg-blue-300/40 blur-sm" />
             </Animated.View>
 
             <Animated.View
               entering={FadeInUp.delay(400).springify()}
               className="absolute left-8 top-32">
-              <View className="h-16 w-16 rounded-full bg-blue-400/20 blur-sm" />
+              <View className="h-16 w-16 rounded-full bg-indigo-300/40 blur-sm" />
             </Animated.View>
 
             {/* Main card */}
             <Animated.View
               entering={FadeInDown.delay(200).springify()}
               style={floatingElementStyle}
-              className="w-full max-w-md items-center overflow-hidden rounded-3xl border border-white/20 bg-white/10 p-8 shadow-2xl backdrop-blur-lg">
+              className="w-full max-w-md items-center overflow-hidden rounded-3xl border border-white/60 bg-white/60 p-8 shadow-xl backdrop-blur-md">
               <View className="mb-6 items-center">
                 <Animated.View style={logoAnimatedStyle}>
                   <Image
@@ -190,25 +192,25 @@ export default function HomeScreen() {
                     resizeMode="contain"
                   />
                 </Animated.View>
-                <Text className="mb-2 text-4xl font-bold text-white">App.js Conf</Text>
+                <Text className="mb-2 text-4xl font-bold text-indigo-800">App.js Conf</Text>
                 <View className="flex-row items-center">
-                  <Text className="text-xl text-blue-200">TanStack Query in Expo demo</Text>
+                  <Text className="text-xl text-indigo-700">TanStack Query in Expo demo</Text>
                 </View>
               </View>
 
-              <View className="my-6 h-0.5 w-full bg-white/10" />
+              <View className="my-6 h-0.5 w-full bg-indigo-200" />
 
               <View className="w-full space-y-4">
                 <Animated.View
                   entering={FadeInDown.delay(500).springify()}
                   className="flex-row items-center">
-                  <Text className="ml-3 text-xl text-blue-200">@DevlinDuldulao</Text>
+                  <Text className="ml-3 text-xl text-indigo-700">By: @DevlinDuldulao</Text>
                 </Animated.View>
 
                 <Animated.View
                   entering={FadeInDown.delay(600).springify()}
                   className="flex-row items-center">
-                  <Text className="ml-3 text-blue-200">Chief Consulting at Crayon Consulting</Text>
+                  <Text className="ml-3 text-lg text-indigo-700">Crayon Consulting</Text>
                 </Animated.View>
               </View>
 
@@ -218,7 +220,7 @@ export default function HomeScreen() {
                   className="h-16 w-16 items-center justify-center overflow-visible rounded-full"
                   style={colorAnimatedStyle}>
                   <Animated.View
-                    className="absolute h-16 w-16 rounded-full bg-blue-500/60 blur-sm"
+                    className="absolute h-16 w-16 rounded-full bg-indigo-500/60 blur-sm"
                     style={pulseAnimatedStyle}
                   />
                   <Text className="text-xl text-white">2025</Text>
@@ -239,18 +241,18 @@ export default function HomeScreen() {
             <Animated.View
               entering={FadeInUp.delay(500).springify()}
               className="absolute bottom-20 left-10">
-              <View className="h-32 w-32 rounded-full bg-purple-500/20 blur-sm" />
+              <View className="h-32 w-32 rounded-full bg-purple-300/30 blur-sm" />
             </Animated.View>
 
             <Animated.View
               entering={FadeInUp.delay(600).springify()}
               className="absolute bottom-32 right-0">
-              <View className="h-24 w-24 rounded-full bg-cyan-400/20 blur-md" />
+              <View className="h-24 w-24 rounded-full bg-cyan-300/30 blur-md" />
             </Animated.View>
 
             {/* Swipe indicator text */}
             <Animated.View style={floatingElementStyle} className="absolute bottom-10">
-              <Text className="text-blue-200 opacity-80">Swipe right to explore demos →</Text>
+              <Text className="text-indigo-700 opacity-80">Swipe right to explore demos →</Text>
             </Animated.View>
           </View>
         </ScrollView>

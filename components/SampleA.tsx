@@ -1,8 +1,8 @@
-import { View, Text } from "react-native";
-import { useEffect } from "react";
-import { useDedupeQuery } from "@/state/server/queries/dedupeQueries";
-import dedupeService from "@/services/dedupe";
-import Spinner from "./Spinner";
+import { View, Text } from 'react-native';
+import { useEffect } from 'react';
+import { useDedupeQuery } from '@/state/server/queries/dedupeQueries';
+import dedupeService from '@/services/dedupe';
+import Spinner from './Spinner';
 
 export default function SampleA() {
   // TanStack Query for deduplication
@@ -13,16 +13,15 @@ export default function SampleA() {
     await dedupeService.getUsers();
   };
 
-  // Similar to ngOnInit
   useEffect(() => {
     fetchUsers();
   }, []);
 
   return (
     <View className="p-4">
-      <View className="p-4 flex-row items-center">
-        <Text className="text-xl font-bold mb-2">Sample-A Component</Text>
-        {myQuery.status === "pending" && <Spinner />}
+      <View className="flex-row items-center p-4">
+        <Text className="mb-2 text-xl font-bold">Sample-A Component</Text>
+        {myQuery.status === 'pending' && <Spinner />}
       </View>
     </View>
   );

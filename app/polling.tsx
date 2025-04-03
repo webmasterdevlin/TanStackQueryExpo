@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import {
   Text,
   View,
@@ -9,11 +9,11 @@ import {
   Animated,
   Easing,
   Platform,
-} from "react-native";
-import { Link } from "expo-router";
-import { useQuery } from "@tanstack/react-query";
-import { names } from "../state/server/queryKey";
-import todoService from "../services/todo";
+} from 'react-native';
+import { Link } from 'expo-router';
+import { useQuery } from '@tanstack/react-query';
+import { names } from '../state/server/queryKey';
+import todoService from '../services/todo';
 
 export default function PollingScreen() {
   const [intervalMs, setIntervalMs] = useState(10000);
@@ -40,10 +40,7 @@ export default function PollingScreen() {
       setIntervalMs(newValue);
       setIsValidInput(true);
     } else {
-      Alert.alert(
-        "Invalid Input",
-        "Please enter a value between 1000 and 10000 ms"
-      );
+      Alert.alert('Invalid Input', 'Please enter a value between 1000 and 10000 ms');
       setInputValue(String(intervalMs));
       setIsValidInput(true);
     }
@@ -134,19 +131,19 @@ export default function PollingScreen() {
       height: 12,
       width: 12,
       borderRadius: 6,
-      backgroundColor: todoListQuery.isFetching ? "#22c55e" : "transparent",
+      backgroundColor: todoListQuery.isFetching ? '#22c55e' : 'transparent',
     };
 
     // Add platform-specific styling
-    if (Platform.OS === "android") {
+    if (Platform.OS === 'android') {
       return {
         ...baseStyle,
         elevation: todoListQuery.isFetching ? 4 : 0,
       };
-    } else if (Platform.OS === "ios") {
+    } else if (Platform.OS === 'ios') {
       return {
         ...baseStyle,
-        shadowColor: "#22c55e",
+        shadowColor: '#22c55e',
         shadowOffset: { width: 0, height: 0 },
         shadowOpacity: todoListQuery.isFetching ? 0.8 : 0,
         shadowRadius: 6,
@@ -155,48 +152,43 @@ export default function PollingScreen() {
       // Web platform
       return {
         ...baseStyle,
-        boxShadow: todoListQuery.isFetching ? "0 0 6px #22c55e" : "none",
+        boxShadow: todoListQuery.isFetching ? '0 0 6px #22c55e' : 'none',
       };
     }
   };
 
   return (
     <View className="flex-1 p-4">
-      <Text className="text-xl font-bold mb-4">
+      <Text className="mb-4 text-xl font-bold">
         Auto Refetch with stale-time set to {intervalMs} ms
       </Text>
 
-      <View className="flex-row items-center mb-1">
+      <View className="mb-1 flex-row items-center">
         <Text className="mr-2">Query Interval speed (ms):</Text>
         <TextInput
           value={inputValue}
           onChangeText={handleIntervalChange}
           onEndEditing={applyInterval}
           keyboardType="numeric"
-          className={`border ${isValidInput ? "bg-white" : "bg-red-200"} text-black border-gray-300 px-2 py-1 rounded w-20`}
+          className={`border ${isValidInput ? 'bg-white' : 'bg-red-200'} w-20 rounded border-gray-300 px-2 py-1 text-black`}
         />
-        <TouchableOpacity
-          onPress={applyInterval}
-          className="ml-2 bg-blue-500 px-2 py-1 rounded"
-        >
+        <TouchableOpacity onPress={applyInterval} className="ml-2 rounded bg-blue-500 px-2 py-1">
           <Text className="text-white">Apply</Text>
         </TouchableOpacity>
       </View>
 
       {!isValidInput && (
-        <Text className="text-red-500 mb-2 text-xs">
-          Enter a value between 1000-10000 ms
-        </Text>
+        <Text className="mb-2 text-xs text-red-500">Enter a value between 1000-10000 ms</Text>
       )}
 
-      <View className="flex-row items-center mb-4">
+      <View className="mb-4 flex-row items-center">
         <Animated.View style={getIndicatorStyle()} />
       </View>
 
-      <Text className="text-lg font-bold mt-2 mb-2">Todo List</Text>
+      <Text className="mb-2 mt-2 text-lg font-bold">Todo List</Text>
 
       <Link href="/new-todo" asChild>
-        <Text className="text-violet-600 mb-4">➕ Add new</Text>
+        <Text className="mb-4 text-violet-700">➕ Add new</Text>
       </Link>
 
       <ScrollView>

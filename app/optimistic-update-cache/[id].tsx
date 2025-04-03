@@ -1,24 +1,18 @@
-import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  ActivityIndicator,
-} from "react-native";
-import { useQuery } from "@tanstack/react-query";
-import { useLocalSearchParams, useRouter, useFocusEffect } from "expo-router";
-import movieService from "@/services/movie";
-import { names } from "@/state/server/queryKey";
-import { Movie } from "@/models";
+import React from 'react';
+import { View, Text, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { useQuery } from '@tanstack/react-query';
+import { useLocalSearchParams, useRouter, useFocusEffect } from 'expo-router';
+import movieService from '@/services/movie';
+import { names } from '@/state/server/queryKey';
+import { Movie } from '@/models';
 
 export default function MovieScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const movieId = parseInt(id || "0");
+  const movieId = parseInt(id || '0');
 
   const goBack = () => {
-    router.replace("/optimistic-update-cache");
+    router.replace('/optimistic-update-cache');
   };
 
   const setMovieId = (id: number) => {
@@ -45,18 +39,17 @@ export default function MovieScreen() {
     }, [movieId])
   );
 
-  if (movieQuery.status === "pending") {
+  if (movieQuery.status === 'pending') {
     return (
       <View className="flex-1 items-center justify-center p-4">
         <Text>
-          Loading. Please wait.{" "}
-          <Text className="text-orange-300">(one-time only)</Text>
+          Loading. Please wait. <Text className="text-orange-300">(one-time only)</Text>
         </Text>
       </View>
     );
   }
 
-  if (movieQuery.status === "error") {
+  if (movieQuery.status === 'error') {
     return (
       <View className="flex-1 items-center justify-center p-4">
         <Text>Error: {movieQuery.error.message}</Text>
@@ -74,17 +67,13 @@ export default function MovieScreen() {
     <View className="flex-1 p-4">
       <View>
         <TouchableOpacity onPress={() => setMovieId(-1)}>
-          <Text className="text-xl font-bold mb-4">🔙</Text>
+          <Text className="mb-4 text-xl font-bold">🔙</Text>
         </TouchableOpacity>
       </View>
 
       <View className="flex-row items-start gap-6">
-        <Image
-          source={{ uri: movie.imageUrl }}
-          className="w-[200px] h-[300px]"
-          alt={movie.title}
-        />
-        <View className="flex-col flex-wrap justify-start flex-1">
+        <Image source={{ uri: movie.imageUrl }} className="h-[300px] w-[200px]" alt={movie.title} />
+        <View className="flex-1 flex-wrap justify-start">
           <View className="flex-wrap gap-10">
             <TouchableOpacity onPress={() => setMovieId(movie.id)}>
               <Text className="text-lg font-bold">
@@ -107,7 +96,7 @@ export default function MovieScreen() {
         </View>
       </View>
 
-      <View className="flex items-center justify-center mt-4">
+      <View className="mt-4 flex items-center justify-center">
         {movieQuery.isFetching && (
           <View className="flex-row items-center">
             <ActivityIndicator size="small" color="#f97316" />

@@ -1,17 +1,10 @@
-import React from "react";
-import {
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  FlatList,
-  ActivityIndicator,
-} from "react-native";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Link } from "expo-router";
-import movieService from "@/services/movie";
-import { names } from "@/state/server/queryKey";
-import { Movie } from "@/models";
+import React from 'react';
+import { Text, View, Image, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { Link, useFocusEffect } from 'expo-router';
+import movieService from '@/services/movie';
+import { names } from '@/state/server/queryKey';
+import { Movie } from '@/models';
 
 export default function MoviesScreen() {
   const queryClient = useQueryClient();
@@ -20,6 +13,18 @@ export default function MoviesScreen() {
     queryKey: [names.movies],
     queryFn: () => movieService.getMovies(),
   });
+
+  const firstTimeRef = React.useRef(true);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (firstTimeRef.current) {
+        firstTimeRef.current = false;
+        return;
+      }
+      moviesQuery.refetch();
+    }, [moviesQuery.refetch])
+  );
 
   const deleteMovieMutation = useMutation({
     mutationFn: (id: number) => movieService.deleteMovie(id),
@@ -57,7 +62,7 @@ export default function MoviesScreen() {
   };
 
   const renderMovieItem = ({ item: movie }: { item: Movie }) => (
-    <View key={movie.id} className="flex-col items-start gap-6 mb-6">
+    <View key={movie.id} className="mb-6 flex items-start gap-6">
       <Image
         source={{ uri: movie.imageUrl }}
         alt={movie.title}
@@ -66,26 +71,22 @@ export default function MoviesScreen() {
         style={{ borderRadius: 8 }}
         resizeMode="cover"
       />
-      <View className="flex-1 mt-2">
-        <View className="flex-col justify-between items-start mb-1">
+      <View className="mt-2 flex-1">
+        <View className="mb-1 flex items-start justify-between">
           <Link
             href={{
-              pathname: "/optimistic-update-cache/[id]",
+              pathname: '/optimistic-update-cache/[id]',
               params: { id: movie.id },
-            }}
-          >
+            }}>
             <Text
               className={
-                queryClient.getQueryData([names.movie, movie.id])
-                  ? "font-bold text-indigo-500"
-                  : ""
-              }
-            >
+                queryClient.getQueryData([names.movie, movie.id]) ? 'font-bold text-indigo-500' : ''
+              }>
               {movie.title} ({movie.year})
             </Text>
           </Link>
           <TouchableOpacity onPress={() => handleDelete(movie.id)}>
-            <Text className="text-red-500 ml-4">❌</Text>
+            <Text className="ml-4 text-red-500">❌</Text>
           </TouchableOpacity>
         </View>
         <Text className="text-orange-500">rating: {movie.rate}/10</Text>
@@ -99,31 +100,30 @@ export default function MoviesScreen() {
   return (
     <View className="flex-1 p-4">
       <View className="mb-4">
-        <Text className="text-2xl font-bold mb-2">Watch History</Text>
+        <Text className="mb-2 text-2xl font-bold">Watch History</Text>
         <Text className="text-lg">
           This week
           {moviesQuery.isFetching && (
-            <Text className="text-gray-500"> (fetching in the background)</Text>
+            <Text className="text-gray-600"> (fetching in the background)</Text>
           )}
         </Text>
       </View>
 
-      {moviesQuery.status === "pending" && (
-        <View className="flex flex-colitems-center justify-center">
+      {moviesQuery.status === 'pending' && (
+        <View className="flex flex-row items-center justify-center">
           <Text>
-            Loading. Please wait.{" "}
-            <Text className="text-orange-300">(one-time only)</Text>
+            Loading. Please wait. <Text className="text-orange-600">(one-time only)</Text>
           </Text>
         </View>
       )}
 
-      {moviesQuery.status === "error" && (
-        <View className="flex flex-colitems-center justify-center">
+      {moviesQuery.status === 'error' && (
+        <View className="flex flex-row items-center justify-center">
           <Text>Error: {moviesQuery.error.message}</Text>
         </View>
       )}
 
-      {moviesQuery.status === "success" && (
+      {moviesQuery.status === 'success' && (
         <FlatList
           data={moviesQuery.data}
           renderItem={renderMovieItem}
@@ -133,7 +133,7 @@ export default function MoviesScreen() {
       )}
 
       {deleteMovieMutation.isPending && (
-        <View className="flex-col items-center justify-center">
+        <View className="flex items-center justify-center">
           <ActivityIndicator size="small" color="#f97316" />
           <Text className="ml-2">Deleting...</Text>
         </View>

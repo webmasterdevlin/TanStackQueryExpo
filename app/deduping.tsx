@@ -1,10 +1,10 @@
-import { Text, View } from "react-native";
-import { useEffect } from "react";
-import SampleA from "@/components/SampleA";
-import SampleB from "@/components/SampleB";
-import Spinner from "@/components/Spinner";
-import { useDedupeQuery } from "@/state/server/queries/dedupeQueries";
-import dedupeService from "@/services/dedupe";
+import { Text, View } from 'react-native';
+import { useEffect } from 'react';
+import SampleA from '@/components/SampleA';
+import SampleB from '@/components/SampleB';
+import Spinner from '@/components/Spinner';
+import { useDedupeQuery } from '@/state/server/queries/dedupeQueries';
+import dedupeService from '@/services/dedupe';
 
 export default function DedupingScreen() {
   // Reusable query - TanStack Query handles deduplication automatically
@@ -22,9 +22,9 @@ export default function DedupingScreen() {
 
   return (
     <View className="flex-1">
-      <View className="p-4 flex-row items-center">
+      <View className="flex-row items-center p-4">
         <Text className="text-xl font-bold">Deduping Page</Text>
-        {myQuery.status === "pending" && <Spinner />}
+        {myQuery.status === 'pending' && <Spinner />}
       </View>
       <SampleA />
       <SampleB />

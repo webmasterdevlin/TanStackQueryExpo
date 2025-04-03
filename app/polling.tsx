@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Text, View, TextInput, Alert } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { LegendList } from '@legendapp/list';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
+import { IconSymbol } from '@/components/ui/IconSymbol';
 import { cn } from '@/utilities/style';
 import todoService from '@/services/todo';
 import { names } from '@/state/server/queryKey';
@@ -59,10 +60,6 @@ export default function PollingScreen() {
 
       <Text className="mb-4 mt-2 text-lg font-bold">Todo List</Text>
 
-      <Link href="/new-todo" asChild>
-        <Text className="mb-4 text-violet-700 underline">Add new</Text>
-      </Link>
-
       <LegendList
         data={todoListQuery.data || []}
         keyExtractor={(item) => String(item.id)}
@@ -72,6 +69,20 @@ export default function PollingScreen() {
           </Text>
         )}
       />
+
+      {/* Floating Action Button */}
+      <Link href="/new-todo" asChild>
+        <TouchableOpacity
+          className="elevation-5 absolute bottom-6 right-6 h-14 w-14 items-center justify-center rounded-full bg-indigo-600 shadow-lg"
+          style={{
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+          }}>
+          <IconSymbol name="paperplane.fill" size={24} color="white" />
+        </TouchableOpacity>
+      </Link>
     </View>
   );
 }

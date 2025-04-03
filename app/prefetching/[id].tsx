@@ -8,12 +8,7 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 
 export default function ReportScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
   const numericId = parseInt(id, 10);
-
-  const goBack = () => {
-    router.replace('/prefetching');
-  };
 
   const reportQuery = useQuery({
     queryKey: [names.report, id],

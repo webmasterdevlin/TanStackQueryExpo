@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Text, View, TextInput } from 'react-native';
 import { useTodoMutation } from '../state/server/mutations/todoMutations';
+import { Link } from 'expo-router';
+import { IconSymbol } from '@/components/ui/IconSymbol';
 
 export default function NewTodoScreen() {
   const [todoValue, setTodoValue] = useState('');
@@ -8,6 +10,11 @@ export default function NewTodoScreen() {
 
   return (
     <View className="flex-1 p-4">
+      <View className="mb-4">
+        <Link href={'/polling'} className="text-lg text-blue-500">
+          <IconSymbol color="indigo" name="arrow.left" />
+        </Link>
+      </View>
       <Text className="mb-4 text-2xl font-bold">Create a new todo</Text>
       <View className="space-y-3">
         <TextInput

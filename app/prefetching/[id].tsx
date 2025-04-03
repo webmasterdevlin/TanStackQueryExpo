@@ -51,7 +51,7 @@ export default function ReportScreen() {
       )}
 
       {reportQuery.data && (
-        <View className="flex-row items-start gap-6">
+        <View className="flex-col items-start gap-6">
           <View className="flex-col justify-start">
             <View className="flex-wrap">
               <Text>{JSON.stringify(reportQuery.data, null, 2)}</Text>
@@ -62,7 +62,7 @@ export default function ReportScreen() {
 
       <View className="items-center justify-center mt-4">
         {reportQuery.isFetching && !reportQuery.isPending && (
-          <View className="flex-row items-center">
+          <View className="flex-col items-center">
             <ActivityIndicator size="small" color="#0000ff" />
             <Text className="ml-2">Fetching in the background</Text>
           </View>

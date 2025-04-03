@@ -11,12 +11,13 @@ import { names } from "@/state/server/queryKey";
 import commodityService from "@/services/commodity";
 import { Commodity } from "@/models";
 import { useScrollToTop } from "@react-navigation/native";
+import { LegendList, LegendListRef } from "@legendapp/list";
 
 export default function InfiniteScrollingScreen() {
   const PAGE_SIZE = 3; // Show only 3 items at a time
-  const flatListRef = useRef<FlatList>(null);
+  const listRef = useRef<LegendListRef>(null);
   const [isAtTop, setIsAtTop] = useState(false);
-  useScrollToTop(flatListRef);
+  useScrollToTop(listRef);
 
   // Get screen height to help size items
   const screenHeight = Dimensions.get("window").height;
@@ -42,6 +43,13 @@ export default function InfiniteScrollingScreen() {
     getNextPageParam: (lastPage) => lastPage.next ?? undefined,
     maxPages: 3,
   });
+
+  // Load previous when reaching top
+  const handleOnStartReached = useCallback(() => {
+    if (hasPreviousPage && !isFetchingPreviousPage) {
+      fetchPreviousPage();
+    }
+  }, [hasPreviousPage, isFetchingPreviousPage, fetchPreviousPage]);
 
   // Load more when reaching bottom
   const handleOnEndReached = useCallback(() => {
@@ -162,11 +170,12 @@ export default function InfiniteScrollingScreen() {
 
   return (
     <View className="flex-1 bg-gray-50">
-      <FlatList
-        ref={flatListRef}
+      <LegendList
+        ref={listRef}
         data={data?.pages.flatMap((page) => page.data) || []}
         renderItem={renderItem}
         keyExtractor={(item) => String(item.id)}
+        onStartReached={handleOnStartReached}
         onEndReached={handleOnEndReached}
         onEndReachedThreshold={0.1} // Trigger closer to the bottom
         onScroll={handleScroll}

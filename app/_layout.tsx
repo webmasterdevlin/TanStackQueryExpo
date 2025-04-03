@@ -81,7 +81,10 @@ export default function RootLayout() {
             />
             <Drawer.Screen
               name="prefetching/[id]"
-              options={{ drawerItemStyle: { display: "none" } }}
+              options={{
+                drawerItemStyle: { display: "none" },
+                title: "report details",
+              }}
             />
             <Drawer.Screen
               name="deduping"
@@ -104,7 +107,10 @@ export default function RootLayout() {
             />
             <Drawer.Screen
               name="optimistic-update-cache/[id]"
-              options={{ drawerItemStyle: { display: "none" } }}
+              options={{
+                drawerItemStyle: { display: "none" },
+                title: "movie details",
+              }}
             />
             <Drawer.Screen
               name="polling"

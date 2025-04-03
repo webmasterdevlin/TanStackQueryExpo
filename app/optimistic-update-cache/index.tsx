@@ -57,14 +57,17 @@ export default function MoviesScreen() {
   };
 
   const renderMovieItem = ({ item: movie }: { item: Movie }) => (
-    <View key={movie.id} className="flex-row items-start gap-6 mb-6">
+    <View key={movie.id} className="flex-col items-start gap-6 mb-6">
       <Image
         source={{ uri: movie.imageUrl }}
-        className="w-[150px] h-[225px]"
         alt={movie.title}
+        width={75}
+        height={110}
+        style={{ borderRadius: 8 }}
+        resizeMode="cover"
       />
       <View className="flex-1 mt-2">
-        <View className="flex-row justify-between items-start mb-1">
+        <View className="flex-col justify-between items-start mb-1">
           <Link
             href={{
               pathname: "/optimistic-update-cache/[id]",
@@ -106,7 +109,7 @@ export default function MoviesScreen() {
       </View>
 
       {moviesQuery.status === "pending" && (
-        <View className="flex items-center justify-center">
+        <View className="flex flex-colitems-center justify-center">
           <Text>
             Loading. Please wait.{" "}
             <Text className="text-orange-300">(one-time only)</Text>
@@ -115,7 +118,7 @@ export default function MoviesScreen() {
       )}
 
       {moviesQuery.status === "error" && (
-        <View className="flex items-center justify-center">
+        <View className="flex flex-colitems-center justify-center">
           <Text>Error: {moviesQuery.error.message}</Text>
         </View>
       )}
@@ -130,7 +133,7 @@ export default function MoviesScreen() {
       )}
 
       {deleteMovieMutation.isPending && (
-        <View className="flex-row items-center justify-center">
+        <View className="flex-col items-center justify-center">
           <ActivityIndicator size="small" color="#f97316" />
           <Text className="ml-2">Deleting...</Text>
         </View>

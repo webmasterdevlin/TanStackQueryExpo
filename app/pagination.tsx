@@ -4,6 +4,7 @@ import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { names } from "../state/server/queryKey";
 import commodityService from "../services/commodity";
 import Spinner from "../components/Spinner";
+import { LegendList } from "@legendapp/list";
 
 export default function PaginationScreen() {
   const [page, setPage] = useState(1);
@@ -24,22 +25,7 @@ export default function PaginationScreen() {
   return (
     <View className="flex-1 p-4">
       <Text className="text-2xl font-bold mb-4">Pagination (Page {page})</Text>
-
-      <FlatList
-        data={data?.data}
-        numColumns={1}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <View className="bg-white p-4 rounded-lg shadow mb-3">
-            <Text className="text-lg font-semibold">Name: {item.name}</Text>
-            <Text className="text-gray-600">Price: {item.price}</Text>
-            <Text className="text-gray-600">Quantity: {item.quantity}</Text>
-          </View>
-        )}
-        className="space-y-4"
-      />
-
-      <View className="flex-row items-center gap-3 mt-4">
+      <View className="flex-col items-center gap-3 mt-4">
         <Button
           title="Previous"
           disabled={page === 1}
@@ -52,6 +38,25 @@ export default function PaginationScreen() {
         />
         {isRefetching && <Spinner />}
       </View>
+      {!data?.data || data.data.length === 0 ? (
+        <View className="flex-1 justify-center items-center">
+          <Text className="text-lg text-gray-500">No items found</Text>
+        </View>
+      ) : (
+        <LegendList
+          data={data.data}
+          numColumns={1}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <View className="bg-white p-4 rounded-lg shadow mb-3">
+              <Text className="text-lg font-semibold">Name: {item.name}</Text>
+              <Text className="text-gray-600">Price: {item.price}</Text>
+              <Text className="text-gray-600">Quantity: {item.quantity}</Text>
+            </View>
+          )}
+          className="space-y-4"
+        />
+      )}
     </View>
   );
 }

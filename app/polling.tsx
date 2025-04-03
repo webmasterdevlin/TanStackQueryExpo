@@ -32,11 +32,11 @@ export default function PollingScreen() {
 
   return (
     <View className="flex-1 p-4">
-      <Text className="mb-4 text-xl font-bold">
+      <Text className="mb-4 text-lg font-bold">
         Auto Refetch with stale-time set to {intervalMs} ms
       </Text>
 
-      <View className="mb-1 flex-row items-center">
+      <View className="mb-5 flex-row items-center">
         <Text className="mr-2">Query Interval speed (ms):</Text>
         <TextInput
           value={inputValue}
@@ -52,7 +52,7 @@ export default function PollingScreen() {
 
       <View
         className={cn(
-          'ml-2.5 h-2.5 w-2.5 rounded-full',
+          'mb-2 ml-2.5 h-2.5 w-2.5 rounded-full',
           todoListQuery.isFetching ? 'bg-green-500' : 'bg-transparent'
         )}
       />

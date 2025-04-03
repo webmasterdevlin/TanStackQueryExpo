@@ -10,7 +10,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { names } from "@/state/server/queryKey";
 import commodityService from "@/services/commodity";
 import { Commodity } from "@/models";
-import { useScrollToTop } from "@react-navigation/native";
+import { useIsFocused, useScrollToTop } from "@react-navigation/native";
 import { LegendList, LegendListRef } from "@legendapp/list";
 
 export default function InfiniteScrollingScreen() {
@@ -42,6 +42,7 @@ export default function InfiniteScrollingScreen() {
     getPreviousPageParam: (firstPage) => firstPage.prev ?? undefined,
     getNextPageParam: (lastPage) => lastPage.next ?? undefined,
     maxPages: 3,
+    subscribed: useIsFocused(),
   });
 
   // Load previous when reaching top
@@ -120,7 +121,7 @@ export default function InfiniteScrollingScreen() {
         </View>
       ) : (
         <View className="p-3 items-center">
-          <Text className="text-gray-500">You've reached the beginning</Text>
+          <Text className="text-gray-500">This is the start 😎</Text>
         </View>
       )}
     </View>
@@ -178,13 +179,14 @@ export default function InfiniteScrollingScreen() {
         onStartReached={handleOnStartReached}
         onEndReached={handleOnEndReached}
         onEndReachedThreshold={0.1} // Trigger closer to the bottom
-        onScroll={handleScroll}
+        // onScroll={handleScroll}
         scrollEventThrottle={16} // For smooth scroll tracking
         ListHeaderComponent={renderHeader}
         ListFooterComponent={renderFooter}
         className="flex-1"
         contentContainerStyle={{ paddingVertical: 10 }}
         showsVerticalScrollIndicator={true}
+        maintainVisibleContentPosition={true}
       />
     </View>
   );

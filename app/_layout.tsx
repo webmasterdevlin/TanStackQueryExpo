@@ -11,7 +11,6 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Drawer } from 'expo-router/drawer';
 import { Colors } from '@/constants/Colors';
 import ReactQueryDevTools from '@/components/providers/ReactQueryDevTools';
-import TanStackProvider from '@/components/providers/TanStackProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useReactQueryDevTools } from '@dev-plugins/react-query';
 
@@ -56,8 +55,8 @@ export default function RootLayout() {
             <Drawer.Screen
               name="index"
               options={{
-                title: 'Welcome',
                 drawerLabel: 'Home',
+                headerShown: false,
                 drawerIcon: ({ size, color }) => <Ionicons name="home" size={size} color={color} />,
               }}
             />

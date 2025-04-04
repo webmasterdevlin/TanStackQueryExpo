@@ -10,7 +10,6 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Drawer } from 'expo-router/drawer';
-import { Colors } from '@/constants/Colors';
 import ReactQueryDevTools from '@/components/providers/ReactQueryDevTools';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useReactQueryDevTools } from '@dev-plugins/react-query';
@@ -82,7 +81,7 @@ export default function RootLayout() {
               name="prefetching/index"
               options={{
                 drawerLabel: 'Prefetching',
-                title: 'prefetching',
+                title: 'Prefetching',
                 drawerIcon: ({ color, size }) => (
                   <Ionicons name="trail-sign-outline" size={size} color={color} />
                 ),
@@ -91,14 +90,15 @@ export default function RootLayout() {
             <Drawer.Screen
               name="prefetching/[id]"
               options={{
+                title: 'Prefetching Report Details',
                 drawerItemStyle: { display: 'none' },
-                title: 'prefetching report details',
               }}
             />
             <Drawer.Screen
               name="deduping"
               options={{
                 drawerLabel: 'Deduping',
+                title: 'Deduping',
                 drawerIcon: ({ color, size }) => (
                   <Ionicons name="cut-outline" size={size} color={color} />
                 ),
@@ -108,7 +108,7 @@ export default function RootLayout() {
               name="optimistic-update-cache/index"
               options={{
                 drawerLabel: 'Optimistic Update',
-                title: 'optimistic update',
+                title: 'Optimistic Update',
                 drawerIcon: ({ color, size }) => (
                   <Ionicons name="flash-outline" size={size} color={color} />
                 ),
@@ -117,14 +117,15 @@ export default function RootLayout() {
             <Drawer.Screen
               name="optimistic-update-cache/[id]"
               options={{
+                title: 'Movie Details',
                 drawerItemStyle: { display: 'none' },
-                title: 'movie details',
               }}
             />
             <Drawer.Screen
               name="polling"
               options={{
                 drawerLabel: 'Polling',
+                title: 'Polling',
                 drawerIcon: ({ color, size }) => (
                   <Ionicons name="arrow-down-outline" size={size} color={color} />
                 ),
@@ -134,6 +135,7 @@ export default function RootLayout() {
               name="pagination"
               options={{
                 drawerLabel: 'Pagination',
+                title: 'Pagination',
                 drawerIcon: ({ color, size }) => (
                   <Ionicons name="book-outline" size={size} color={color} />
                 ),
@@ -143,7 +145,7 @@ export default function RootLayout() {
               name="infinite-scrolling"
               options={{
                 drawerLabel: 'Infinite Scrolling',
-                title: 'infinite scrolling',
+                title: 'Infinite Scrolling',
                 drawerIcon: ({ color, size }) => (
                   <Ionicons name="infinite-outline" size={size} color={color} />
                 ),
@@ -151,7 +153,10 @@ export default function RootLayout() {
             />
             <Drawer.Screen
               name="new-todo"
-              options={{ drawerItemStyle: { display: 'none' }, title: '' }}
+              options={{
+                title: '',
+                drawerItemStyle: { display: 'none' },
+              }}
             />
             <Drawer.Screen name="+not-found" options={{ drawerItemStyle: { display: 'none' } }} />
           </Drawer>

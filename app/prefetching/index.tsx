@@ -1,4 +1,3 @@
-import React, { useCallback } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'expo-router';
@@ -16,20 +15,17 @@ export default function ReportsScreen() {
     gcTime: Infinity, // Reports won't be garbage collected
   });
 
-  const handlePreLoad = useCallback(
-    async (reportId: number) => {
-      /* When you know or suspect that a certain piece of data will be needed,
-    you can use prefetching to populate the cache ahead of time,
-    leading to a faster experience for the user. */
-      await queryClient.prefetchQuery({
-        queryKey: [names.report, reportId],
-        queryFn: () => reportService.getReportById(reportId),
-        staleTime: Infinity,
-        gcTime: Infinity,
-      });
-    },
-    [queryClient]
-  );
+  const handlePreLoad = async (reportId: string) => {
+    /* When you know or suspect that a certain piece of data will be needed,
+  you can use prefetching to populate the cache ahead of time,
+  leading to a faster experience for the user. */
+    await queryClient.prefetchQuery({
+      queryKey: [names.report, reportId],
+      queryFn: () => reportService.getReportById(reportId),
+      staleTime: Infinity,
+      gcTime: Infinity,
+    });
+  };
 
   const renderReportItem = ({ item }: { item: Report }) => (
     <Link
@@ -38,7 +34,7 @@ export default function ReportsScreen() {
         params: { id: item.id },
       }}
       onLayout={() => {
-        if (item.id < 20) handlePreLoad(item.id);
+        if (Number(item.id) < 20) handlePreLoad(item.id);
       }}
       className="border-b border-gray-200 py-3">
       <Text className="text-lg text-blue-700">{item.title}</Text>

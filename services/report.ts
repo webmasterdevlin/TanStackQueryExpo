@@ -4,7 +4,7 @@ import { api } from '@/http-client/api-config';
 const endPoint = 'reports';
 
 const reportService = {
-  async getReportById(id: number): Promise<Report> {
+  async getReportById(id: string): Promise<Report> {
     const response = await api.get<Report>(`${endPoint}/${id}`);
     return response.data;
   },

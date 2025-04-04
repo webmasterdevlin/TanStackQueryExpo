@@ -4,7 +4,7 @@ import { Movie } from '@/models';
 const endPoint = 'movies';
 
 const movieService = {
-  async getMovieById(id: number): Promise<Movie> {
+  async getMovieById(id: string): Promise<Movie> {
     const response = await api.get<Movie>(`${endPoint}/${id}`);
     return response.data;
   },
@@ -14,7 +14,7 @@ const movieService = {
     return response.data;
   },
 
-  async deleteMovie(id: number): Promise<void> {
+  async deleteMovie(id: string): Promise<void> {
     await api.delete(`${endPoint}/${id}`);
   },
 };

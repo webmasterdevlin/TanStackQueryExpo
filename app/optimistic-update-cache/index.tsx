@@ -23,14 +23,14 @@ export default function MoviesScreen() {
         return;
       }
       moviesQuery.refetch();
-    }, [moviesQuery])
+    }, [moviesQuery.refetch])
   );
 
   const deleteMovieMutation = useMutation({
     mutationKey: [names.movies, 'delete'],
-    mutationFn: (id: number) => movieService.deleteMovie(id),
+    mutationFn: (id: string) => movieService.deleteMovie(id),
     // Implement optimistic updates
-    onMutate: async (id: number) => {
+    onMutate: async (id: string) => {
       // Cancel any outgoing refetches
       await queryClient.cancelQueries({ queryKey: [names.movies] });
 
@@ -65,7 +65,7 @@ export default function MoviesScreen() {
     },
   });
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     deleteMovieMutation.mutate(id);
   };
 

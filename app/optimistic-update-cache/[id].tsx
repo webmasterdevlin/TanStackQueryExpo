@@ -9,22 +9,21 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 
 export default function MovieScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const movieId = parseInt(id || '0');
 
   const movieQuery = useQuery<Movie, Error>({
-    queryKey: [names.movie, movieId],
-    queryFn: () => movieService.getMovieById(movieId),
-    enabled: movieId > 0,
+    queryKey: [names.movie, id],
+    queryFn: () => movieService.getMovieById(id),
+    enabled: Number(id) > 0, // Only fetch if ID is valid
   });
 
   // Refetch data when screen comes into focus
   useFocusEffect(
     useCallback(() => {
-      if (movieId > 0) {
+      if (Number(id) > 0) {
         movieQuery.refetch();
       }
       // Dependencies array includes movieId to refetch if ID changes
-    }, [movieId, movieQuery])
+    }, [id, movieQuery.refetch])
   );
 
   if (movieQuery.status === 'pending') {

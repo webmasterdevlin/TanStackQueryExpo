@@ -20,11 +20,11 @@ const queryClient = new QueryClient();
 // App.js Conf colors for drawer navigation
 const appjsConfColors = {
   primaryBlue100: '#484dfc',
-  primaryBlue80: '#7189ff', 
+  primaryBlue80: '#7189ff',
   primaryBlue20: '#eef0ff',
   appBlack100: '#261930',
   appBlack60: '#877b91',
-  appAccent0: '#faf8f8'
+  appAccent0: '#faf8f8',
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.

@@ -1,5 +1,5 @@
 export type Movie = {
-  id: number;
+  id: string;
   title: string;
   description: string;
   imageUrl: string;
@@ -11,19 +11,19 @@ export type Movie = {
 };
 
 export type Todo = {
-  id: number;
+  id: string;
   title: string;
   completed: boolean;
 };
 
 export type Album = {
-  userId: number;
-  id: number;
+  userid: string;
+  id: string;
   title: string;
 };
 
 export type Report = {
-  id: number;
+  id: string;
   title: string;
   description: string;
   date: string;
@@ -40,14 +40,14 @@ export type CommodityPaginate = {
 };
 
 export type Commodity = {
-  id: number;
+  id: string;
   name: string;
   price: number;
   quantity: number;
 };
 
 export type User = {
-  id: number;
+  id: string;
   name: string;
   username: string;
   email: string;
@@ -71,8 +71,8 @@ export type User = {
 };
 
 export type Post = {
-  userId: number;
-  id: number;
+  userid: string;
+  id: string;
   title: string;
   body: string;
 };

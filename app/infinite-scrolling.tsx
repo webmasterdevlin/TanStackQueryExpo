@@ -20,7 +20,7 @@ export default function InfiniteScrollingScreen() {
   const flatListRef = useRef<FlatList>(null);
 
   // To track the last visible item before pagination
-  const [lastVisibleItemId, setLastVisibleItemId] = useState<number | null>(null);
+  const [lastVisibleItemId, setLastVisibleItemId] = useState<string | null>(null);
 
   // Flag to prevent multiple pagination calls
   const isLoadingMoreRef = useRef(false);

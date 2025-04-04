@@ -8,13 +8,12 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 
 export default function ReportScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const reportId = parseInt(id, 10);
 
   const reportQuery = useQuery({
-    queryKey: [names.report, reportId],
-    queryFn: () => reportService.getReportById(reportId),
+    queryKey: [names.report, id],
+    queryFn: () => reportService.getReportById(id),
     staleTime: 1000 * 60 * 1, // 1 minute
-    // enabled: !isNaN(reportId) && reportId > 0,
+    enabled: Number(id) > 0, // Only fetch if ID is valid
   });
 
   const firstTimeRef = React.useRef(true);
@@ -26,7 +25,7 @@ export default function ReportScreen() {
         return;
       }
       reportQuery.refetch();
-    }, [reportQuery])
+    }, [reportQuery.refetch])
   );
 
   return (

@@ -52,13 +52,28 @@ export default function RootLayout() {
               drawerStyle: {
                 backgroundColor: Colors[colorScheme].background,
               },
-            }}>
+              // Set a transparent overlay color to prevent dark overlay on startup
+              overlayColor: 'transparent',
+            }}
+            // Set default state to closed to avoid overlay issues
+            initialRouteName="index"
+            defaultStatus="closed">
             <Drawer.Screen
               name="index"
               options={{
                 drawerLabel: 'Home',
                 headerShown: false,
                 drawerIcon: ({ size, color }) => <Ionicons name="home" size={size} color={color} />,
+              }}
+            />
+            <Drawer.Screen
+              name="color-palette"
+              options={{
+                drawerLabel: 'App.js Conf Colors',
+                title: 'Color Palette',
+                drawerIcon: ({ color, size }) => (
+                  <Ionicons name="color-palette-outline" size={size} color={color} />
+                ),
               }}
             />
             <Drawer.Screen

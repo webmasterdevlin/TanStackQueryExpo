@@ -10,6 +10,8 @@ import {
 import { useState, useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 import Animated, {
   FadeInDown,
   FadeInUp,
@@ -28,6 +30,17 @@ import Animated, {
 export default function HomeScreen() {
   const { height } = useWindowDimensions();
   const [pulseActive, setPulseActive] = useState(true);
+  const navigation = useNavigation<DrawerNavigationProp<any>>();
+
+  // Fix the dark overlay issue by resetting drawer state on mount
+  useEffect(() => {
+    // Small delay to ensure the drawer state is properly reset
+    const timer = setTimeout(() => {
+      navigation.closeDrawer();
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [navigation]);
 
   // Animation values
   const rotation = useSharedValue(0);
@@ -154,6 +167,7 @@ export default function HomeScreen() {
           right: 0,
           top: 0,
           height: height,
+          zIndex: -1, // Ensure gradient stays behind content
         }}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}

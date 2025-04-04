@@ -6,7 +6,6 @@ import {
   SafeAreaView,
   StatusBar,
   useWindowDimensions,
-  Pressable,
 } from 'react-native';
 import { useState, useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -16,7 +15,6 @@ import Animated, {
   FadeInUp,
   useAnimatedStyle,
   useSharedValue,
-  withSpring,
   withRepeat,
   withSequence,
   withDelay,
@@ -28,7 +26,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 export default function HomeScreen() {
-  const { height, width } = useWindowDimensions();
+  const { height } = useWindowDimensions();
   const [pulseActive, setPulseActive] = useState(true);
 
   // Animation values

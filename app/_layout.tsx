@@ -1,22 +1,21 @@
 import '../global.css';
+import 'react-native-reanimated';
+import { useEffect } from 'react';
 
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { Drawer } from 'expo-router/drawer';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { Drawer } from 'expo-router/drawer';
 import ReactQueryDevTools from '@/components/providers/ReactQueryDevTools';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useReactQueryDevTools } from '@dev-plugins/react-query';
 
 const queryClient = new QueryClient();
 
-// App.js Conf colors for drawer navigation
 const appjsConfColors = {
   primaryBlue100: '#484dfc',
   primaryBlue80: '#7189ff',
@@ -158,7 +157,6 @@ export default function RootLayout() {
                 drawerItemStyle: { display: 'none' },
               }}
             />
-            <Drawer.Screen name="+not-found" options={{ drawerItemStyle: { display: 'none' } }} />
           </Drawer>
         </GestureHandlerRootView>
         <StatusBar style="auto" />

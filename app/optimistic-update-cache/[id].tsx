@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
-import { View, Text, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, Image, ActivityIndicator } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
-import { useLocalSearchParams, useRouter, useFocusEffect, Link } from 'expo-router';
+import { useLocalSearchParams, useFocusEffect, Link } from 'expo-router';
 import movieService from '@/services/movie';
 import { names } from '@/state/server/queryKey';
 import { Movie } from '@/models';

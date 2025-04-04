@@ -182,20 +182,20 @@ export default function HomeScreen() {
             <Animated.View
               entering={FadeInUp.delay(300).springify()}
               className="absolute right-5 top-16">
-              <View className="bg-appBlue-40/40 h-24 w-24 rounded-full blur-sm" />
+              <View className="h-24 w-24 rounded-full bg-appBlue-40/40 blur-sm" />
             </Animated.View>
 
             <Animated.View
               entering={FadeInUp.delay(400).springify()}
               className="absolute left-8 top-32">
-              <View className="bg-appBlue-60/40 h-16 w-16 rounded-full blur-sm" />
+              <View className="h-16 w-16 rounded-full bg-appBlue-60/40 blur-sm" />
             </Animated.View>
 
             {/* Main card */}
             <Animated.View
               entering={FadeInDown.delay(200).springify()}
               style={floatingElementStyle}
-              className="bg-appAccent-0/60 w-full max-w-md items-center overflow-hidden rounded-3xl border border-white/60 p-8 shadow-xl backdrop-blur-md">
+              className="w-full max-w-md items-center overflow-hidden rounded-3xl border border-white/60 bg-appAccent-0/60 p-8 shadow-xl backdrop-blur-md">
               <View className="mb-6 items-center">
                 <Animated.View style={logoAnimatedStyle}>
                   <Image
@@ -204,25 +204,25 @@ export default function HomeScreen() {
                     resizeMode="contain"
                   />
                 </Animated.View>
-                <Text className="text-appBlack-100 mb-2 text-4xl font-bold">App.js Conf</Text>
+                <Text className="mb-2 text-4xl font-bold text-appBlack-100">App.js Conf</Text>
                 <View className="flex-row items-center">
-                  <Text className="text-appBlack-80 text-xl">TanStack Query in Expo demo</Text>
+                  <Text className="text-xl text-appBlack-80">TanStack Query in Expo demo</Text>
                 </View>
               </View>
 
-              <View className="bg-appBlue-40 my-6 h-0.5 w-full" />
+              <View className="my-6 h-0.5 w-full bg-appBlue-40" />
 
               <View className="w-full space-y-4">
                 <Animated.View
                   entering={FadeInDown.delay(500).springify()}
                   className="flex-row items-center">
-                  <Text className="text-appBlue-100 ml-3 text-xl">By: @DevlinDuldulao</Text>
+                  <Text className="ml-3 text-xl text-appBlue-100">By: @DevlinDuldulao</Text>
                 </Animated.View>
 
                 <Animated.View
                   entering={FadeInDown.delay(600).springify()}
                   className="flex-row items-center">
-                  <Text className="text-appBlack-80 ml-3 text-lg">Crayon Consulting</Text>
+                  <Text className="ml-3 text-lg text-appBlack-80">Crayon Consulting</Text>
                 </Animated.View>
               </View>
 
@@ -232,7 +232,7 @@ export default function HomeScreen() {
                   className="h-16 w-16 items-center justify-center overflow-visible rounded-full"
                   style={colorAnimatedStyle}>
                   <Animated.View
-                    className="bg-appBlue-80/60 absolute h-16 w-16 rounded-full blur-sm"
+                    className="absolute h-16 w-16 rounded-full bg-appBlue-80/60 blur-sm"
                     style={pulseAnimatedStyle}
                   />
                   <Text className="text-xl text-white">2025</Text>
@@ -253,13 +253,13 @@ export default function HomeScreen() {
             <Animated.View
               entering={FadeInUp.delay(500).springify()}
               className="absolute bottom-20 left-10">
-              <View className="bg-appAccent-100/30 h-32 w-32 rounded-full blur-sm" />
+              <View className="h-32 w-32 rounded-full bg-appAccent-100/30 blur-sm" />
             </Animated.View>
 
             <Animated.View
               entering={FadeInUp.delay(600).springify()}
               className="absolute bottom-32 right-0">
-              <View className="bg-appBlue-40/30 h-24 w-24 rounded-full blur-md" />
+              <View className="h-24 w-24 rounded-full bg-appBlue-40/30 blur-md" />
             </Animated.View>
 
             {/* Swipe indicator text */}

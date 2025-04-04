@@ -1,21 +1,36 @@
-import React, { useRef, useCallback } from 'react';
-import { Text, View, ActivityIndicator, Dimensions } from 'react-native';
+import React, { useRef, useCallback, useState, useEffect } from 'react';
+import {
+  Text,
+  View,
+  ActivityIndicator,
+  Dimensions,
+  FlatList,
+  TouchableOpacity,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+  ViewabilityConfig,
+  ViewToken,
+} from 'react-native';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { names } from '@/state/server/queryKey';
 import commodityService from '@/services/commodity';
 import { Commodity } from '@/models';
-import { useIsFocused, useScrollToTop } from '@react-navigation/native';
-import { LegendList, LegendListRef } from '@legendapp/list';
+import { useIsFocused } from '@react-navigation/native';
 import { cn } from '@/utilities/style';
 
 export default function InfiniteScrollingScreen() {
-  const PAGE_SIZE = 5; // Increased from 3 to show more items at a time
-  const listRef = useRef<LegendListRef>(null);
-  useScrollToTop(listRef);
+  const PAGE_SIZE = 3;
+  const flatListRef = useRef<FlatList>(null);
 
-  // Get screen height to help size items
+  // To track the last visible item before pagination
+  const [lastVisibleItemId, setLastVisibleItemId] = useState<number | null>(null);
+
+  // Flag to prevent multiple pagination calls
+  const isLoadingMoreRef = useRef(false);
+
+  // Get screen dimensions for item sizing
   const screenHeight = Dimensions.get('window').height;
-  const itemHeight = screenHeight / 4.5; // Slightly more than 4 per screen
+  const itemHeight = screenHeight / 4.5;
 
   const {
     data,
@@ -36,25 +51,110 @@ export default function InfiniteScrollingScreen() {
     initialPageParam: 1,
     getPreviousPageParam: (firstPage) => firstPage.prev ?? undefined,
     getNextPageParam: (lastPage) => lastPage.next ?? undefined,
-    maxPages: 10, // Limit the number of pages to prevent excessive memory usage
+    maxPages: 3, // Limiting to 3 pages for memory efficiency
     refetchOnMount: 'always',
     subscribed: useIsFocused(),
   });
 
-  // Load previous when reaching top
-  const handleOnStartReached = useCallback(() => {
-    if (hasPreviousPage && !isFetchingPreviousPage) {
-      fetchPreviousPage();
-    }
-  }, [hasPreviousPage, isFetchingPreviousPage, fetchPreviousPage]);
+  // Extract all items from all pages
+  const allItems = data?.pages.flatMap((page) => page.data) || [];
 
-  // Load more when reaching bottom
-  const handleOnEndReached = useCallback(() => {
-    if (hasNextPage && !isFetchingNextPage) {
-      fetchNextPage();
-    }
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+  // Handle manual loading of previous items with better position management
+  const handleLoadPrevious = useCallback(() => {
+    if (hasPreviousPage && !isFetchingPreviousPage && !isLoadingMoreRef.current) {
+      isLoadingMoreRef.current = true;
 
+      // If we have items, remember the first one to maintain position
+      if (allItems.length > 0) {
+        setLastVisibleItemId(allItems[0].id);
+      }
+
+      fetchPreviousPage().finally(() => {
+        isLoadingMoreRef.current = false;
+      });
+    }
+  }, [hasPreviousPage, isFetchingPreviousPage, fetchPreviousPage, allItems]);
+
+  // Load more when reaching the bottom
+  const handleLoadMore = useCallback(() => {
+    if (hasNextPage && !isFetchingNextPage && !isLoadingMoreRef.current) {
+      isLoadingMoreRef.current = true;
+
+      // Remember the last item currently in view to maintain position
+      if (allItems.length > 0) {
+        // Get the last visible item's id from viewability callback
+        const lastIdx = allItems.length - 1;
+        setLastVisibleItemId(allItems[lastIdx].id);
+      }
+
+      fetchNextPage().finally(() => {
+        isLoadingMoreRef.current = false;
+      });
+    }
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage, allItems]);
+
+  // Restore scroll position after data loads
+  useEffect(() => {
+    if (
+      !isFetchingNextPage &&
+      !isFetchingPreviousPage &&
+      lastVisibleItemId &&
+      flatListRef.current
+    ) {
+      // Find the index of the remembered item
+      const itemIndex = allItems.findIndex((item) => item.id === lastVisibleItemId);
+
+      if (itemIndex !== -1) {
+        // Small delay to ensure rendering is complete
+        setTimeout(() => {
+          flatListRef.current?.scrollToIndex({
+            index: itemIndex,
+            animated: false,
+            viewPosition: 0.5, // Position in middle of viewport
+          });
+          setLastVisibleItemId(null); // Reset after restoring position
+        }, 50);
+      }
+    }
+  }, [isFetchingNextPage, isFetchingPreviousPage, lastVisibleItemId, allItems]);
+
+  // Handle viewability tracking with proper types
+  const handleViewableItemsChanged = useCallback(
+    (info: { viewableItems: ViewToken[]; changed: ViewToken[] }) => {
+      if (info.viewableItems && info.viewableItems.length > 0) {
+        // Track visible items if needed
+        const visibleItem = info.viewableItems[0].item as Commodity;
+        if (visibleItem && visibleItem.id) {
+          // We can use this to update current visible item if needed
+        }
+      }
+    },
+    []
+  );
+
+  const viewabilityConfig = useRef<ViewabilityConfig>({
+    itemVisiblePercentThreshold: 50,
+  });
+
+  // Handle scroll failure gracefully
+  const handleScrollToIndexFailed = useCallback(
+    (info: { index: number; highestMeasuredFrameIndex: number }) => {
+      console.log('Scroll to index failed:', info);
+      // Try again with a delay and adjusted index
+      setTimeout(() => {
+        if (flatListRef.current && allItems.length > 0) {
+          const fallbackIndex = Math.min(info.index, allItems.length - 1);
+          flatListRef.current.scrollToIndex({
+            index: Math.max(0, fallbackIndex),
+            animated: false,
+          });
+        }
+      }, 100);
+    },
+    [allItems]
+  );
+
+  // Item renderer
   const renderItem = ({ item }: { item: Commodity }) => (
     <View
       className="mx-3 mb-4 overflow-hidden rounded-xl bg-white p-4 shadow-md"
@@ -92,7 +192,8 @@ export default function InfiniteScrollingScreen() {
 
   const renderHeader = () => (
     <View className="py-4">
-      <Text className="mb-4 text-center text-2xl font-bold">Commodities</Text>
+      <Text className="mb-4 text-center text-2xl font-bold">Limited Infinite Query</Text>
+      <Text className="mb-4 text-center text-sm text-gray-500">Using maxPages: 3</Text>
 
       {isFetchingPreviousPage ? (
         <View className="items-center p-3">
@@ -101,9 +202,11 @@ export default function InfiniteScrollingScreen() {
         </View>
       ) : hasPreviousPage ? (
         <View className="items-center p-3">
-          <Text className="font-semibold text-indigo-600">
-            Scroll to top to load previous items
-          </Text>
+          <TouchableOpacity
+            className="rounded-lg bg-indigo-100 px-4 py-2"
+            onPress={handleLoadPrevious}>
+            <Text className="font-semibold text-indigo-600">Load Previous Items</Text>
+          </TouchableOpacity>
         </View>
       ) : (
         <View className="items-center p-3">
@@ -148,34 +251,35 @@ export default function InfiniteScrollingScreen() {
         <Text className="mb-6 text-center text-red-400">
           {(error as Error)?.message || 'Unknown error'}
         </Text>
-        <View
-          className="rounded-lg bg-indigo-600 px-6 py-3"
-          onStartShouldSetResponder={() => {
-            refetch();
-            return true;
-          }}>
+        <TouchableOpacity className="rounded-lg bg-indigo-600 px-6 py-3" onPress={() => refetch()}>
           <Text className="text-center font-semibold text-white">Try Again</Text>
-        </View>
+        </TouchableOpacity>
       </View>
     );
   }
 
   return (
     <View className="flex-1 bg-gray-50">
-      <LegendList
-        ref={listRef}
-        data={data?.pages.flatMap((page) => page.data) || []}
+      <FlatList
+        ref={flatListRef}
+        data={allItems}
         renderItem={renderItem}
         keyExtractor={(item) => String(item.id)}
-        onStartReached={handleOnStartReached}
-        onEndReached={handleOnEndReached}
+        onEndReached={handleLoadMore}
         onEndReachedThreshold={0.3}
-        scrollEventThrottle={16}
+        onViewableItemsChanged={handleViewableItemsChanged}
+        viewabilityConfig={viewabilityConfig.current}
         ListHeaderComponent={renderHeader}
         ListFooterComponent={renderFooter}
-        className="flex-1"
         contentContainerStyle={{ paddingVertical: 10 }}
         showsVerticalScrollIndicator={true}
+        scrollEventThrottle={16}
+        onScrollToIndexFailed={handleScrollToIndexFailed}
+        initialNumToRender={5}
+        maxToRenderPerBatch={5}
+        windowSize={5}
+        // Performance optimizations to prevent jump
+        removeClippedSubviews={false}
       />
     </View>
   );

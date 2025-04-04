@@ -189,8 +189,7 @@ export default function InfiniteScrollingScreen() {
 
   const renderHeader = () => (
     <View className="py-4">
-      <Text className="mb-4 text-center text-2xl font-bold">Limited Infinite Query</Text>
-      <Text className="mb-4 text-center text-sm text-gray-500">Using maxPages: 3</Text>
+      <Text className="mb-4 text-center text-sm text-gray-500">In Stocks</Text>
 
       {isFetchingPreviousPage ? (
         <View className="items-center p-3">

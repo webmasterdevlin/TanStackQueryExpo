@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Text, View, Image, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link, useFocusEffect } from 'expo-router';
@@ -8,47 +8,55 @@ import { Movie } from '@/models';
 
 export default function MoviesScreen() {
   const queryClient = useQueryClient();
+  const firstTimeRef = React.useRef(true);
 
   const moviesQuery = useQuery<Movie[], Error>({
     queryKey: [names.movies],
     queryFn: () => movieService.getMovies(),
   });
 
-  const firstTimeRef = React.useRef(true);
-
+  // Refetch data when screen comes into focus (only after first render)
   useFocusEffect(
-    React.useCallback(() => {
+    useCallback(() => {
       if (firstTimeRef.current) {
         firstTimeRef.current = false;
         return;
       }
       moviesQuery.refetch();
-    }, [moviesQuery.refetch])
+    }, [moviesQuery])
   );
 
   const deleteMovieMutation = useMutation({
+    mutationKey: [names.movies, 'delete'],
     mutationFn: (id: number) => movieService.deleteMovie(id),
+    // Implement optimistic updates
     onMutate: async (id: number) => {
       // Cancel any outgoing refetches
       await queryClient.cancelQueries({ queryKey: [names.movies] });
 
       // Snapshot the previous value
-      const backup = queryClient.getQueryData<Movie[]>([names.movies]);
+      const previousMovies = queryClient.getQueryData<Movie[]>([names.movies]);
 
       // Optimistically update by removing the movie from the list
-      if (backup) {
+      if (previousMovies) {
         queryClient.setQueryData<Movie[]>(
           [names.movies],
-          backup.filter((m) => m.id !== id)
+          previousMovies.filter((m) => m.id !== id)
         );
-        return { backup };
+
+        // Also remove the individual movie query if it exists
+        queryClient.removeQueries({ queryKey: [names.movie, id] });
       }
-      return { backup: null };
+
+      return { previousMovies };
     },
     onError: (_error, _variables, context) => {
+      // Show error notification
+      console.error('Failed to delete movie');
+
       // Rollback the cache on error
-      if (context?.backup) {
-        queryClient.setQueryData<Movie[]>([names.movies], context.backup);
+      if (context?.previousMovies) {
+        queryClient.setQueryData<Movie[]>([names.movies], context.previousMovies);
       }
     },
     onSettled: () => {
@@ -62,13 +70,11 @@ export default function MoviesScreen() {
   };
 
   const renderMovieItem = ({ item: movie }: { item: Movie }) => (
-    <View key={movie.id} className="mb-6 flex items-start gap-6">
+    <View key={movie.id} className="mb-6 flex-row items-start gap-4 rounded-lg bg-white p-4 shadow">
       <Image
         source={{ uri: movie.imageUrl }}
         alt={movie.title}
-        width={75}
-        height={110}
-        style={{ borderRadius: 8 }}
+        className="h-[130px] w-[85px] rounded"
         resizeMode="cover"
       />
       <View className="mt-2 flex-1">
@@ -100,7 +106,7 @@ export default function MoviesScreen() {
   return (
     <View className="flex-1 p-4">
       <View className="mb-4">
-        <Text className="mb-2 text-2xl font-bold">Watch History</Text>
+        <Text className="mb-2 text-2xl font-bold">Movie Feed History</Text>
         <Text className="text-lg">
           This week
           {moviesQuery.isFetching && (

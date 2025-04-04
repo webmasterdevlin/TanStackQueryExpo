@@ -1,32 +1,32 @@
-import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
-import { useLocalSearchParams, useRouter, useFocusEffect, Link } from 'expo-router';
-import React from 'react';
+import { useLocalSearchParams, useFocusEffect, Link } from 'expo-router';
+import React, { useCallback } from 'react';
 import reportService from '@/services/report';
 import { names } from '@/state/server/queryKey';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 
 export default function ReportScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const numericId = parseInt(id, 10);
+  const reportId = parseInt(id, 10);
 
   const reportQuery = useQuery({
-    queryKey: [names.report, id],
-    queryFn: () => reportService.getReportById(numericId),
+    queryKey: [names.report, reportId],
+    queryFn: () => reportService.getReportById(reportId),
     staleTime: 1000 * 60 * 1, // 1 minute
-    // enabled: !isNaN(numericId) && numericId > 0,
+    // enabled: !isNaN(reportId) && reportId > 0,
   });
 
   const firstTimeRef = React.useRef(true);
 
   useFocusEffect(
-    React.useCallback(() => {
+    useCallback(() => {
       if (firstTimeRef.current) {
         firstTimeRef.current = false;
         return;
       }
       reportQuery.refetch();
-    }, [reportQuery.refetch])
+    }, [reportQuery])
   );
 
   return (

@@ -1,4 +1,5 @@
 import '../global.css';
+
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -64,7 +65,7 @@ export default function RootLayout() {
               name="prefetching/index"
               options={{
                 drawerLabel: 'Prefetching',
-                title: 'reports',
+                title: 'prefetching',
                 drawerIcon: ({ color, size }) => (
                   <Ionicons name="trail-sign-outline" size={size} color={color} />
                 ),
@@ -74,7 +75,7 @@ export default function RootLayout() {
               name="prefetching/[id]"
               options={{
                 drawerItemStyle: { display: 'none' },
-                title: 'report details',
+                title: 'prefetching report details',
               }}
             />
             <Drawer.Screen
@@ -90,7 +91,7 @@ export default function RootLayout() {
               name="optimistic-update-cache/index"
               options={{
                 drawerLabel: 'Optimistic Update',
-                title: 'movies',
+                title: 'optimistic update',
                 drawerIcon: ({ color, size }) => (
                   <Ionicons name="flash-outline" size={size} color={color} />
                 ),
@@ -125,6 +126,7 @@ export default function RootLayout() {
               name="infinite-scrolling"
               options={{
                 drawerLabel: 'Infinite Scrolling',
+                title: 'infinite scrolling',
                 drawerIcon: ({ color, size }) => (
                   <Ionicons name="infinite-outline" size={size} color={color} />
                 ),

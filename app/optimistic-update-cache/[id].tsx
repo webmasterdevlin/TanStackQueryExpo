@@ -1,27 +1,15 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, Text, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
-import { useLocalSearchParams, useRouter, useFocusEffect } from 'expo-router';
+import { useLocalSearchParams, useRouter, useFocusEffect, Link } from 'expo-router';
 import movieService from '@/services/movie';
 import { names } from '@/state/server/queryKey';
 import { Movie } from '@/models';
+import { IconSymbol } from '@/components/ui/IconSymbol';
 
 export default function MovieScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
   const movieId = parseInt(id || '0');
-
-  const goBack = () => {
-    router.replace('/optimistic-update-cache');
-  };
-
-  const setMovieId = (id: number) => {
-    if (id === -1) {
-      goBack();
-    } else {
-      router.push(`/optimistic-update-cache/${id}`);
-    }
-  };
 
   const movieQuery = useQuery<Movie, Error>({
     queryKey: [names.movie, movieId],
@@ -31,12 +19,12 @@ export default function MovieScreen() {
 
   // Refetch data when screen comes into focus
   useFocusEffect(
-    React.useCallback(() => {
+    useCallback(() => {
       if (movieId > 0) {
         movieQuery.refetch();
       }
       // Dependencies array includes movieId to refetch if ID changes
-    }, [movieId])
+    }, [movieId, movieQuery])
   );
 
   if (movieQuery.status === 'pending') {
@@ -66,20 +54,20 @@ export default function MovieScreen() {
   return (
     <View className="flex-1 p-4">
       <View>
-        <TouchableOpacity onPress={() => setMovieId(-1)}>
-          <Text className="mb-4 text-xl font-bold">🔙</Text>
-        </TouchableOpacity>
+        <Link href="./" className="text-lg text-blue-500">
+          <IconSymbol color="indigo" name="arrow.left" />
+        </Link>
       </View>
 
       <View className="flex-row items-start gap-6">
         <Image source={{ uri: movie.imageUrl }} className="h-[300px] w-[200px]" alt={movie.title} />
         <View className="flex-1 flex-wrap justify-start">
           <View className="flex-wrap gap-10">
-            <TouchableOpacity onPress={() => setMovieId(movie.id)}>
+            <Link href={{ pathname: '/optimistic-update-cache/[id]', params: { id: movie.id } }}>
               <Text className="text-lg font-bold">
                 {movie.title} ({movie.year})
               </Text>
-            </TouchableOpacity>
+            </Link>
           </View>
           <View>
             <Text className="text-orange-500">rating: {movie.rate}/10</Text>

@@ -23,7 +23,7 @@ export default function DedupingScreen() {
   return (
     <View className="flex-1">
       <View className="flex-row items-center p-4">
-        <Text className="text-xl font-bold">Deduping Page</Text>
+        <Text className="text-xl font-bold">HTTP Requests in Screen</Text>
         {myQuery.status === 'pending' && <Spinner />}
       </View>
       <SampleA />

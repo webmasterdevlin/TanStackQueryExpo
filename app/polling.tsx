@@ -32,9 +32,9 @@ export default function PollingScreen() {
   };
 
   return (
-    <View className="flex-1 p-4">
+    <View className="flex-1 bg-gray-50 p-4">
       <Text className="mb-4 text-lg font-bold">
-        Auto Refetch with stale-time set to {intervalMs} ms
+        Auto Refetch with polling interval set to {intervalMs} ms
       </Text>
 
       <View className="mb-5 flex-row items-center">
@@ -80,7 +80,7 @@ export default function PollingScreen() {
             shadowOpacity: 0.25,
             shadowRadius: 3.84,
           }}>
-          <IconSymbol name="paperplane.fill" size={24} color="white" />
+          <IconSymbol name="plus.circle.dashed" size={24} color="white" />
         </TouchableOpacity>
       </Link>
     </View>

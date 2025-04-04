@@ -6,8 +6,6 @@ import {
   Dimensions,
   FlatList,
   TouchableOpacity,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
   ViewabilityConfig,
   ViewToken,
 } from 'react-native';
@@ -16,7 +14,6 @@ import { names } from '@/state/server/queryKey';
 import commodityService from '@/services/commodity';
 import { Commodity } from '@/models';
 import { useIsFocused } from '@react-navigation/native';
-import { cn } from '@/utilities/style';
 
 export default function InfiniteScrollingScreen() {
   const PAGE_SIZE = 3;
@@ -200,18 +197,12 @@ export default function InfiniteScrollingScreen() {
           <ActivityIndicator size="small" color="#6366f1" />
           <Text className="mt-2 text-indigo-600">Loading previous items...</Text>
         </View>
-      ) : hasPreviousPage ? (
-        <View className="items-center p-3">
-          <TouchableOpacity
-            className="rounded-lg bg-indigo-100 px-4 py-2"
-            onPress={handleLoadPrevious}>
-            <Text className="font-semibold text-indigo-600">Load Previous Items</Text>
-          </TouchableOpacity>
-        </View>
       ) : (
-        <View className="items-center p-3">
-          <Text className="text-gray-500">You're at the beginning 🎉</Text>
-        </View>
+        !hasPreviousPage && (
+          <View className="items-center p-3">
+            <Text className="text-gray-500">You're at the beginning 🎉</Text>
+          </View>
+        )
       )}
     </View>
   );
@@ -265,6 +256,8 @@ export default function InfiniteScrollingScreen() {
         data={allItems}
         renderItem={renderItem}
         keyExtractor={(item) => String(item.id)}
+        onStartReached={handleLoadPrevious}
+        onStartReachedThreshold={0.3}
         onEndReached={handleLoadMore}
         onEndReachedThreshold={0.3}
         onViewableItemsChanged={handleViewableItemsChanged}
@@ -275,10 +268,9 @@ export default function InfiniteScrollingScreen() {
         showsVerticalScrollIndicator={true}
         scrollEventThrottle={16}
         onScrollToIndexFailed={handleScrollToIndexFailed}
-        initialNumToRender={5}
-        maxToRenderPerBatch={5}
-        windowSize={5}
-        // Performance optimizations to prevent jump
+        initialNumToRender={3}
+        maxToRenderPerBatch={3}
+        windowSize={3}
         removeClippedSubviews={false}
       />
     </View>

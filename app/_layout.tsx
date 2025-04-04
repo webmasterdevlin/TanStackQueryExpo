@@ -67,16 +67,6 @@ export default function RootLayout() {
               }}
             />
             <Drawer.Screen
-              name="color-palette"
-              options={{
-                drawerLabel: 'App.js Conf Colors',
-                title: 'Color Palette',
-                drawerIcon: ({ color, size }) => (
-                  <Ionicons name="color-palette-outline" size={size} color={color} />
-                ),
-              }}
-            />
-            <Drawer.Screen
               name="prefetching/index"
               options={{
                 drawerLabel: 'Prefetching',

@@ -5,6 +5,7 @@ import { Link, useFocusEffect } from 'expo-router';
 import movieService from '@/services/movie';
 import { names } from '@/state/server/queryKey';
 import { Movie } from '@/models';
+import { IconSymbol } from '@/components/ui/IconSymbol';
 
 export default function MoviesScreen() {
   const queryClient = useQueryClient();
@@ -71,30 +72,39 @@ export default function MoviesScreen() {
 
   const renderMovieItem = ({ item: movie }: { item: Movie }) => (
     <View key={movie.id} className="mb-6 flex-row items-start gap-4 rounded-lg bg-white p-4 shadow">
-      <Image
-        source={{ uri: movie.imageUrl }}
-        alt={movie.title}
-        className="h-[130px] w-[85px] rounded"
-        resizeMode="cover"
-      />
-      <View className="mt-2 flex-1">
-        <View className="mb-1 flex items-start justify-between">
+      <View>
+        <Image
+          source={{ uri: movie.imageUrl }}
+          alt={movie.title}
+          className="h-[130px] w-[85px] rounded"
+          resizeMode="cover"
+        />
+        <View className="mt-2 flex-row justify-center space-x-4">
           <Link
             href={{
               pathname: '/optimistic-update-cache/[id]',
               params: { id: movie.id },
             }}>
-            <Text
-              className={
-                queryClient.getQueryData([names.movie, movie.id]) ? 'font-bold text-indigo-500' : ''
-              }>
-              {movie.title} ({movie.year})
-            </Text>
+            <View className="items-center justify-center rounded-full bg-indigo-500 p-2">
+              <IconSymbol name="eye.fill" color="white" size={18} />
+            </View>
           </Link>
           <TouchableOpacity onPress={() => handleDelete(movie.id)}>
-            <Text className="ml-4 text-red-500">❌</Text>
+            <View className="items-center justify-center rounded-full bg-red-500 p-2">
+              <IconSymbol name="trash.fill" color="white" size={18} />
+            </View>
           </TouchableOpacity>
         </View>
+      </View>
+      <View className="mt-2 flex-1">
+        <Text
+          className={
+            queryClient.getQueryData([names.movie, movie.id])
+              ? 'font-bold text-indigo-500'
+              : 'font-bold'
+          }>
+          {movie.title} ({movie.year})
+        </Text>
         <Text className="text-orange-500">rating: {movie.rate}/10</Text>
         <Text className="mt-1">{movie.description}</Text>
         <Text className="mt-1">Director: {movie.director}</Text>

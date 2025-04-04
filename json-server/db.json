@@ -835,6 +835,21 @@
   ],
   "movies": [
     {
+      "id": "10",
+      "title": "Goodfellas",
+      "year": 1990,
+      "director": "Martin Scorsese",
+      "duration": "146 min",
+      "genre": [
+        "Biography",
+        "Crime",
+        "Drama"
+      ],
+      "rate": 8.7,
+      "description": "The story of Henry Hill and his life in the mob, covering his relationship with his wife Karen Hill and his mob partners Jimmy Conway and Tommy DeVito.",
+      "imageUrl": "https://m.media-amazon.com/images/M/MV5BN2E5NzI2ZGMtY2VjNi00YTRjLWI1MDUtZGY5OWU1MWJjZjRjXkEyXkFqcGc@._V1_.jpg"
+    },
+    {
       "id": "1",
       "title": "The Shawshank Redemption",
       "year": 1994,
@@ -847,20 +862,7 @@
       "description": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
       "imageUrl": "https://m.media-amazon.com/images/M/MV5BNDE3ODcxYzMtY2YzZC00NmNlLWJiNDMtZDViZWM2MzIxZDYwXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg"
     },
-    {
-      "id": "2",
-      "title": "The Godfather",
-      "year": 1972,
-      "director": "Francis Ford Coppola",
-      "duration": "175 min",
-      "genre": [
-        "Crime",
-        "Drama"
-      ],
-      "rate": 9.2,
-      "description": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
-      "imageUrl": "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg"
-    },
+
     {
       "id": "3",
       "title": "The Dark Knight",
@@ -905,6 +907,77 @@
       "rate": 8.9,
       "description": "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
       "imageUrl": "https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2ItYzViMjE3YzI5MjljXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg"
+    },
+    {
+
+      "id": "6",
+      "title": "Forrest Gump",
+      "year": 1994,
+      "director": "Robert Zemeckis",
+      "duration": "142 min",
+      "genre": [
+        "Drama",
+        "Romance"
+      ],
+      "rate": 8.8,
+      "description": "The presidencies of Kennedy and Johnson, the Vietnam War, the Watergate scandal and other historical events unfold through the perspective of an Alabama man with an IQ of 75.",
+      "imageUrl": "https://m.media-amazon.com/images/M/MV5BNDYwNzVjMTItZmU5YS00YjQ5LTljYjgtMjY2NDVmYWMyNWFmXkEyXkFqcGc@._V1_.jpg"
+    },
+    {
+      "id": "2",
+      "title": "The Godfather",
+      "year": 1972,
+      "director": "Francis Ford Coppola",
+      "duration": "175 min",
+      "genre": [
+        "Crime",
+        "Drama"
+      ],
+      "rate": 9.2,
+      "description": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+      "imageUrl": "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg"
+    },
+    {
+      "id": "7",
+      "title": "Inception",
+      "year": 2010,
+      "director": "Christopher Nolan",
+      "duration": "148 min",
+      "genre": [
+        "Action",
+        "Adventure",
+        "Sci-Fi"
+      ],
+      "rate": 8.8,
+      "description": "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a CEO.",
+      "imageUrl": "https://m.media-amazon.com/images/M/MV5BMTMyMzYxMDQ3NV5BMl5BanBnXkFtZTcwNTA1NTcwMw@@._V1_.jpg"
+    },
+    {
+      "id": "8",
+      "title": "Fight Club",
+      "year": 1999,
+      "director": "David Fincher",
+      "duration": "139 min",
+      "genre": [
+        "Drama"
+      ],
+      "rate": 8.8,
+      "description": "An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into much more.",
+      "imageUrl": "https://m.media-amazon.com/images/M/MV5BOTgyOGQ1NDItNGU3Ny00MjU3LTg2YWEtNmEyYjBiMjI1Y2M5XkEyXkFqcGc@._V1_.jpg"
+    },
+    {
+      "id": "9",
+      "title": "The Matrix",
+      "year": 1999,
+      "director": "Lana Wachowski, Lilly Wachowski",
+      "duration": "136 min",
+      "genre": [
+        "Action",
+        "Sci-Fi"
+      ],
+      "rate": 8.7,
+      "description": "When a beautiful stranger leads computer hacker Neo to a forbidding underworld, he discovers the shocking truth: the life he knows is the elaborate deception of an evil cyber-intelligence.",
+      "imageUrl": "https://m.media-amazon.com/images/M/MV5BN2NmN2VhMTQtMDNiOS00NDlhLTliMjgtODE2ZTY0ODQyNDRhXkEyXkFqcGc@._V1_.jpg"
     }
   ],
   "todo-list": [

@@ -16,7 +16,7 @@ import { Commodity } from '@/models';
 import { useIsFocused } from '@react-navigation/native';
 
 export default function InfiniteScrollingScreen() {
-  const PAGE_SIZE = 3;
+  const PAGE_SIZE = 7;
   const flatListRef = useRef<FlatList>(null);
 
   // To track the last visible item before pagination

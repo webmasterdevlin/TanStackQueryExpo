@@ -1524,6 +1524,606 @@
       "name": "Long Island Iced Tea",
       "price": 2000,
       "quantity": 10
+    },
+    {
+      "id": 101,
+      "name": "Avocado",
+      "price": 1500,
+      "quantity": 10
+    },
+    {
+      "id": 102,
+      "name": "Quinoa",
+      "price": 3500,
+      "quantity": 15
+    },
+    {
+      "id": 103,
+      "name": "Kale",
+      "price": 1200,
+      "quantity": 8
+    },
+    {
+      "id": 104,
+      "name": "Sweet Potato",
+      "price": 800,
+      "quantity": 20
+    },
+    {
+      "id": 105,
+      "name": "Coconut Oil",
+      "price": 4500,
+      "quantity": 5
+    },
+    {
+      "id": 106,
+      "name": "Honey",
+      "price": 3000,
+      "quantity": 12
+    },
+    {
+      "id": 107,
+      "name": "Maple Syrup",
+      "price": 5000,
+      "quantity": 7
+    },
+    {
+      "id": 108,
+      "name": "Cashew Nuts",
+      "price": 4800,
+      "quantity": 10
+    },
+    {
+      "id": 109,
+      "name": "Almond Milk",
+      "price": 2500,
+      "quantity": 15
+    },
+    {
+      "id": 110,
+      "name": "Tofu",
+      "price": 1800,
+      "quantity": 10
+    },
+    {
+      "id": 111,
+      "name": "Soy Sauce",
+      "price": 1200,
+      "quantity": 20
+    },
+    {
+      "id": 112,
+      "name": "Olive Oil",
+      "price": 3500,
+      "quantity": 10
+    },
+    {
+      "id": 113,
+      "name": "Pasta",
+      "price": 1000,
+      "quantity": 25
+    },
+    {
+      "id": 114,
+      "name": "Couscous",
+      "price": 1500,
+      "quantity": 15
+    },
+    {
+      "id": 115,
+      "name": "Greek Yogurt",
+      "price": 2200,
+      "quantity": 10
+    },
+    {
+      "id": 116,
+      "name": "Hummus",
+      "price": 1800,
+      "quantity": 12
+    },
+    {
+      "id": 117,
+      "name": "Kombucha",
+      "price": 3000,
+      "quantity": 8
+    },
+    {
+      "id": 118,
+      "name": "Protein Powder",
+      "price": 5500,
+      "quantity": 5
+    },
+    {
+      "id": 119,
+      "name": "Chia Seeds",
+      "price": 2800,
+      "quantity": 10
+    },
+    {
+      "id": 120,
+      "name": "Flax Seeds",
+      "price": 2500,
+      "quantity": 10
+    },
+    {
+      "id": 121,
+      "name": "Oats",
+      "price": 1200,
+      "quantity": 20
+    },
+    {
+      "id": 122,
+      "name": "Granola",
+      "price": 2800,
+      "quantity": 10
+    },
+    {
+      "id": 123,
+      "name": "Coconut Water",
+      "price": 1500,
+      "quantity": 15
+    },
+    {
+      "id": 124,
+      "name": "Matcha Tea",
+      "price": 3500,
+      "quantity": 8
+    },
+    {
+      "id": 125,
+      "name": "Espresso Beans",
+      "price": 4000,
+      "quantity": 10
+    },
+    {
+      "id": 126,
+      "name": "Craft Beer",
+      "price": 3500,
+      "quantity": 12
+    },
+    {
+      "id": 127,
+      "name": "Artisan Bread",
+      "price": 2500,
+      "quantity": 10
+    },
+    {
+      "id": 128,
+      "name": "Seaweed Snacks",
+      "price": 1800,
+      "quantity": 15
+    },
+    {
+      "id": 129,
+      "name": "Banana Chips",
+      "price": 1500,
+      "quantity": 20
+    },
+    {
+      "id": 130,
+      "name": "Dried Mango",
+      "price": 2200,
+      "quantity": 12
+    },
+    {
+      "id": 131,
+      "name": "Truffle Oil",
+      "price": 8000,
+      "quantity": 5
+    },
+    {
+      "id": 132,
+      "name": "Balsamic Vinegar",
+      "price": 3500,
+      "quantity": 10
+    },
+    {
+      "id": 133,
+      "name": "Smoked Salmon",
+      "price": 6000,
+      "quantity": 8
+    },
+    {
+      "id": 134,
+      "name": "Goat Cheese",
+      "price": 4500,
+      "quantity": 10
+    },
+    {
+      "id": 135,
+      "name": "Kimchi",
+      "price": 3000,
+      "quantity": 10
+    },
+    {
+      "id": 136,
+      "name": "Sauerkraut",
+      "price": 2500,
+      "quantity": 12
+    },
+    {
+      "id": 137,
+      "name": "Gluten-free Flour",
+      "price": 4000,
+      "quantity": 10
+    },
+    {
+      "id": 138,
+      "name": "Coconut Flour",
+      "price": 3500,
+      "quantity": 10
+    },
+    {
+      "id": 139,
+      "name": "Almond Flour",
+      "price": 4500,
+      "quantity": 8
+    },
+    {
+      "id": 140,
+      "name": "Stevia",
+      "price": 2800,
+      "quantity": 15
+    },
+    {
+      "id": 141,
+      "name": "Agave Nectar",
+      "price": 3200,
+      "quantity": 10
+    },
+    {
+      "id": 142,
+      "name": "Goji Berries",
+      "price": 4000,
+      "quantity": 8
+    },
+    {
+      "id": 143,
+      "name": "Açaí Powder",
+      "price": 5500,
+      "quantity": 6
+    },
+    {
+      "id": 144,
+      "name": "Coconut Milk",
+      "price": 2000,
+      "quantity": 15
+    },
+    {
+      "id": 145,
+      "name": "Ghee",
+      "price": 4500,
+      "quantity": 8
+    },
+    {
+      "id": 146,
+      "name": "Tempeh",
+      "price": 2800,
+      "quantity": 10
+    },
+    {
+      "id": 147,
+      "name": "Nutritional Yeast",
+      "price": 3200,
+      "quantity": 12
+    },
+    {
+      "id": 148,
+      "name": "Spirulina",
+      "price": 5000,
+      "quantity": 5
+    },
+    {
+      "id": 149,
+      "name": "Maca Powder",
+      "price": 4800,
+      "quantity": 8
+    },
+    {
+      "id": 150,
+      "name": "Hemp Seeds",
+      "price": 3500,
+      "quantity": 10
+    },
+    {
+      "id": 151,
+      "name": "Collagen Powder",
+      "price": 6000,
+      "quantity": 5
+    },
+    {
+      "id": 152,
+      "name": "Turmeric",
+      "price": 2000,
+      "quantity": 15
+    },
+    {
+      "id": 153,
+      "name": "Cinnamon",
+      "price": 1800,
+      "quantity": 20
+    },
+    {
+      "id": 154,
+      "name": "Vanilla Extract",
+      "price": 3500,
+      "quantity": 10
+    },
+    {
+      "id": 155,
+      "name": "Tahini",
+      "price": 3000,
+      "quantity": 12
+    },
+    {
+      "id": 156,
+      "name": "Pickles",
+      "price": 1500,
+      "quantity": 15
+    },
+    {
+      "id": 157,
+      "name": "Olives",
+      "price": 2800,
+      "quantity": 10
+    },
+    {
+      "id": 158,
+      "name": "Capers",
+      "price": 2200,
+      "quantity": 12
+    },
+    {
+      "id": 159,
+      "name": "Pesto",
+      "price": 3500,
+      "quantity": 8
+    },
+    {
+      "id": 160,
+      "name": "Sundried Tomatoes",
+      "price": 3800,
+      "quantity": 10
+    },
+    {
+      "id": 161,
+      "name": "Artichoke Hearts",
+      "price": 3200,
+      "quantity": 10
+    },
+    {
+      "id": 162,
+      "name": "Roasted Red Peppers",
+      "price": 2800,
+      "quantity": 12
+    },
+    {
+      "id": 163,
+      "name": "Wasabi Paste",
+      "price": 2500,
+      "quantity": 10
+    },
+    {
+      "id": 164,
+      "name": "Miso Paste",
+      "price": 3000,
+      "quantity": 10
+    },
+    {
+      "id": 165,
+      "name": "Harissa",
+      "price": 3200,
+      "quantity": 8
+    },
+    {
+      "id": 166,
+      "name": "Garam Masala",
+      "price": 2500,
+      "quantity": 12
+    },
+    {
+      "id": 167,
+      "name": "Cumin",
+      "price": 1800,
+      "quantity": 15
+    },
+    {
+      "id": 168,
+      "name": "Coriander",
+      "price": 1800,
+      "quantity": 15
+    },
+    {
+      "id": 169,
+      "name": "Cardamom",
+      "price": 2800,
+      "quantity": 10
+    },
+    {
+      "id": 170,
+      "name": "Saffron",
+      "price": 12000,
+      "quantity": 3
+    },
+    {
+      "id": 171,
+      "name": "Plant-based Burger",
+      "price": 4500,
+      "quantity": 8
+    },
+    {
+      "id": 172,
+      "name": "Vegan Cheese",
+      "price": 4000,
+      "quantity": 10
+    },
+    {
+      "id": 173,
+      "name": "Dried Apricots",
+      "price": 2800,
+      "quantity": 12
+    },
+    {
+      "id": 174,
+      "name": "Trail Mix",
+      "price": 3500,
+      "quantity": 10
+    },
+    {
+      "id": 175,
+      "name": "Almond Butter",
+      "price": 4500,
+      "quantity": 8
+    },
+    {
+      "id": 176,
+      "name": "Cashew Butter",
+      "price": 5000,
+      "quantity": 8
+    },
+    {
+      "id": 177,
+      "name": "Sunflower Seeds",
+      "price": 2000,
+      "quantity": 15
+    },
+    {
+      "id": 178,
+      "name": "Pumpkin Seeds",
+      "price": 2200,
+      "quantity": 15
+    },
+    {
+      "id": 179,
+      "name": "Quinoa Chips",
+      "price": 2800,
+      "quantity": 12
+    },
+    {
+      "id": 180,
+      "name": "Herbal Tea",
+      "price": 3000,
+      "quantity": 10
+    },
+    {
+      "id": 181,
+      "name": "Yerba Mate",
+      "price": 3200,
+      "quantity": 10
+    },
+    {
+      "id": 182,
+      "name": "Cold Brew Coffee",
+      "price": 3500,
+      "quantity": 8
+    },
+    {
+      "id": 183,
+      "name": "Kombucha Starter Kit",
+      "price": 5500,
+      "quantity": 5
+    },
+    {
+      "id": 184,
+      "name": "Kefir Grains",
+      "price": 4000,
+      "quantity": 8
+    },
+    {
+      "id": 185,
+      "name": "Sourdough Starter",
+      "price": 3800,
+      "quantity": 10
+    },
+    {
+      "id": 186,
+      "name": "Organic Lemons",
+      "price": 1200,
+      "quantity": 20
+    },
+    {
+      "id": 187,
+      "name": "Organic Limes",
+      "price": 1200,
+      "quantity": 20
+    },
+    {
+      "id": 188,
+      "name": "Green Tea",
+      "price": 2500,
+      "quantity": 15
+    },
+    {
+      "id": 189,
+      "name": "Black Tea",
+      "price": 2500,
+      "quantity": 15
+    },
+    {
+      "id": 190,
+      "name": "Jasmine Tea",
+      "price": 2800,
+      "quantity": 12
+    },
+    {
+      "id": 191,
+      "name": "Instant Coffee",
+      "price": 3000,
+      "quantity": 10
+    },
+    {
+      "id": 192,
+      "name": "Cocoa Powder",
+      "price": 2500,
+      "quantity": 15
+    },
+    {
+      "id": 193,
+      "name": "Dark Chocolate",
+      "price": 3500,
+      "quantity": 10
+    },
+    {
+      "id": 194,
+      "name": "Protein Bars",
+      "price": 4000,
+      "quantity": 12
+    },
+    {
+      "id": 195,
+      "name": "Energy Drinks",
+      "price": 2800,
+      "quantity": 15
+    },
+    {
+      "id": 196,
+      "name": "Keto Snacks",
+      "price": 4500,
+      "quantity": 8
+    },
+    {
+      "id": 197,
+      "name": "Paleo Bread",
+      "price": 5000,
+      "quantity": 6
+    },
+    {
+      "id": 198,
+      "name": "Brown Rice",
+      "price": 1500,
+      "quantity": 15
+    },
+    {
+      "id": 199,
+      "name": "Wild Rice",
+      "price": 3800,
+      "quantity": 10
+    },
+    {
+      "id": 200,
+      "name": "Amaranth",
+      "price": 4000,
+      "quantity": 8
     }
   ],
   "reports": [

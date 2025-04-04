@@ -17,6 +17,16 @@ import { useReactQueryDevTools } from '@dev-plugins/react-query';
 
 const queryClient = new QueryClient();
 
+// App.js Conf colors for drawer navigation
+const appjsConfColors = {
+  primaryBlue100: '#484dfc',
+  primaryBlue80: '#7189ff', 
+  primaryBlue20: '#eef0ff',
+  appBlack100: '#261930',
+  appBlack60: '#877b91',
+  appAccent0: '#faf8f8'
+};
+
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
@@ -43,14 +53,16 @@ export default function RootLayout() {
         <GestureHandlerRootView style={{ flex: 1 }}>
           <Drawer
             screenOptions={{
-              headerTintColor: Colors[colorScheme].text,
+              headerTintColor: appjsConfColors.appBlack100,
               headerStyle: {
-                backgroundColor: Colors[colorScheme].background,
+                backgroundColor: appjsConfColors.appAccent0,
               },
-              drawerActiveTintColor: Colors[colorScheme].tint,
-              drawerInactiveTintColor: Colors[colorScheme].text,
+              drawerActiveTintColor: appjsConfColors.primaryBlue100,
+              drawerInactiveTintColor: appjsConfColors.appBlack60,
               drawerStyle: {
-                backgroundColor: Colors[colorScheme].background,
+                backgroundColor: appjsConfColors.primaryBlue20,
+                borderRightColor: appjsConfColors.primaryBlue80,
+                borderRightWidth: 1,
               },
               // Set a transparent overlay color to prevent dark overlay on startup
               overlayColor: 'transparent',

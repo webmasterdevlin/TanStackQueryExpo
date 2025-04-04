@@ -1,9 +1,7 @@
-import axios from "axios";
-import { Todo } from "../models";
-import { Platform } from "react-native";
-import { api } from "@/http-client/api-config";
+import { Todo } from '@/models';
+import { api } from '@/http-client/api-config';
 
-const endPoint = "todo-list";
+const endPoint = 'todo-list';
 
 const todoService = {
   async getTodos(): Promise<Todo[]> {

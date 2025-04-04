@@ -1,4 +1,4 @@
-export interface Movie {
+export type Movie = {
   id: number;
   title: string;
   description: string;
@@ -8,28 +8,28 @@ export interface Movie {
   duration: string;
   genre: string[];
   rate: number;
-}
+};
 
-export interface Todo {
+export type Todo = {
   id: number;
   title: string;
   completed: boolean;
-}
+};
 
-export interface Album {
+export type Album = {
   userId: number;
   id: number;
   title: string;
-}
+};
 
-export interface Report {
+export type Report = {
   id: number;
   title: string;
   description: string;
   date: string;
-}
+};
 
-export interface CommodityPaginate {
+export type CommodityPaginate = {
   first: number;
   prev: number;
   next: number;
@@ -37,11 +37,42 @@ export interface CommodityPaginate {
   pages: number;
   items: number;
   data: Commodity[];
-}
+};
 
-export interface Commodity {
+export type Commodity = {
   id: number;
   name: string;
   price: number;
   quantity: number;
-}
+};
+
+export type User = {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  address: {
+    street: string;
+    suite: string;
+    city: string;
+    zipcode: string;
+    geo: {
+      lat: string;
+      lng: string;
+    };
+  };
+  phone: string;
+  website: string;
+  company: {
+    name: string;
+    catchPhrase: string;
+    bs: string;
+  };
+};
+
+export type Post = {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+};

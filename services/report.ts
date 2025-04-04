@@ -1,7 +1,7 @@
-import { Report } from "../models";
-import { api } from "@/http-client/api-config";
+import { Report } from '@/models';
+import { api } from '@/http-client/api-config';
 
-const endPoint = "reports";
+const endPoint = 'reports';
 
 const reportService = {
   async getReportById(id: number): Promise<Report> {

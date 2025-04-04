@@ -1,14 +1,14 @@
-import { api } from "@/http-client/api-config";
-import axios from "axios";
+import { api } from '@/http-client/api-config';
+import { Post, User } from '@/models';
 
 const dedupeService = {
-  getPosts: async () => {
-    const response = await api.get("posts");
+  async getPosts(): Promise<Post[]> {
+    const response = await api.get<Post[]>('posts');
     return response.data;
   },
 
-  getUsers: async () => {
-    const response = await api.get("users");
+  async getUsers(): Promise<User[]> {
+    const response = await api.get<User[]>('users');
     return response.data;
   },
 };

@@ -1,8 +1,7 @@
-import axios from "axios";
-import { Movie } from "../models";
-import { api } from "@/http-client/api-config";
+import { api } from '@/http-client/api-config';
+import { Movie } from '@/models';
 
-const endPoint = "movies";
+const endPoint = 'movies';
 
 const movieService = {
   async getMovieById(id: number): Promise<Movie> {

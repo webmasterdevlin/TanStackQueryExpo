@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { LegendList } from '@legendapp/list';
+import { Text, View, TextInput, TouchableOpacity, FlatList } from 'react-native';
 import { Link } from 'expo-router';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { useQuery } from '@tanstack/react-query';
 import { cn } from '@/utilities/style';
 import todoService from '@/services/todo';
 import { names } from '@/state/server/queryKey';
-import AntDesign from '@expo/vector-icons/AntDesign';
 
 export default function PollingScreen() {
   const [intervalMs, setIntervalMs] = useState(10000);
@@ -60,8 +59,8 @@ export default function PollingScreen() {
 
       <Text className="mb-4 mt-2 text-lg font-bold">Todo List</Text>
 
-      <LegendList
-        data={todoListQuery.data || []}
+      <FlatList
+        data={todoListQuery?.data || []}
         keyExtractor={(item) => String(item.id)}
         renderItem={({ item, index }) => (
           <Text className="py-1">

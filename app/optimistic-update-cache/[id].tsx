@@ -5,7 +5,7 @@ import { useLocalSearchParams, useFocusEffect, Link } from 'expo-router';
 import movieService from '@/services/movie';
 import { names } from '@/state/server/queryKey';
 import { Movie } from '@/models';
-import { IconSymbol } from '@/components/ui/IconSymbol';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function MovieScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -53,8 +53,8 @@ export default function MovieScreen() {
   return (
     <View className="flex-1 p-4">
       <View>
-        <Link href="./" className="text-lg text-blue-500">
-          <IconSymbol color="indigo" name="arrow.left" />
+        <Link href="./" className="mb-2 text-lg text-blue-500">
+          <Ionicons name="arrow-back" size={24} color="indigo" />
         </Link>
       </View>
 

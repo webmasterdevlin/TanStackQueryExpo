@@ -3,10 +3,10 @@ import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { LegendList } from '@legendapp/list';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
-import { IconSymbol } from '@/components/ui/IconSymbol';
 import { cn } from '@/utilities/style';
 import todoService from '@/services/todo';
 import { names } from '@/state/server/queryKey';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 export default function PollingScreen() {
   const [intervalMs, setIntervalMs] = useState(10000);
@@ -80,7 +80,7 @@ export default function PollingScreen() {
             shadowOpacity: 0.25,
             shadowRadius: 3.84,
           }}>
-          <IconSymbol name="plus.circle.dashed" size={24} color="white" />
+          <AntDesign name="pluscircleo" size={24} color="white" />
         </TouchableOpacity>
       </Link>
     </View>

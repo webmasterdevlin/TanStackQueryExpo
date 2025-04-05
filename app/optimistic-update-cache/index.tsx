@@ -5,7 +5,8 @@ import { Link, useFocusEffect } from 'expo-router';
 import movieService from '@/services/movie';
 import { names } from '@/state/server/queryKey';
 import { Movie } from '@/models';
-import { IconSymbol } from '@/components/ui/IconSymbol';
+import Octicons from '@expo/vector-icons/Octicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function MoviesScreen() {
   const queryClient = useQueryClient();
@@ -86,12 +87,12 @@ export default function MoviesScreen() {
               params: { id: movie.id },
             }}>
             <View className="items-center justify-center rounded-full bg-indigo-500 p-2">
-              <IconSymbol name="eye.fill" color="white" size={18} />
+              <Ionicons name="eye" size={18} color="white" />
             </View>
           </Link>
           <TouchableOpacity onPress={() => handleDelete(movie.id)}>
             <View className="items-center justify-center rounded-full bg-red-500 p-2">
-              <IconSymbol name="trash.fill" color="white" size={18} />
+              <Octicons name="trash" size={18} color="white" />
             </View>
           </TouchableOpacity>
         </View>

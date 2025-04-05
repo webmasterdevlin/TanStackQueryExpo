@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { LegendList } from '@legendapp/list';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import Octicons from '@expo/vector-icons/Octicons';
 import { names } from '@/state/server/queryKey';
 import commodityService from '@/services/commodity';
 import Spinner from '@/components/Spinner';
 import { Commodity } from '@/models';
-import { IconSymbol } from '@/components/ui/IconSymbol';
 
 export default function PaginationScreen() {
   const [page, setPage] = useState(1);
@@ -45,7 +46,7 @@ export default function PaginationScreen() {
 
   const renderEmptyState = () => (
     <View className="flex-1 items-center justify-center py-10">
-      <IconSymbol name="tray" size={48} color="#d1d5db" />
+      <MaterialCommunityIcons name="tray" size={48} color="#d1d5db" />
       <Text className="mt-4 text-center text-gray-400">No items to display</Text>
     </View>
   );
@@ -56,7 +57,7 @@ export default function PaginationScreen() {
         className={`flex-row items-center rounded-lg ${page === 1 ? 'bg-gray-200' : 'bg-indigo-600'} px-4 py-2`}
         onPress={() => handleSetPage(page - 1)}
         disabled={page === 1 || isFetching}>
-        <IconSymbol name="chevron.left" size={16} color={page === 1 ? '#9ca3af' : '#ffffff'} />
+        <Octicons name="chevron-left" size={16} color={page === 1 ? '#9ca3af' : '#ffffff'} />
         <Text className={`ml-1 ${page === 1 ? 'text-gray-500' : 'text-white'}`}>Previous</Text>
       </TouchableOpacity>
 
@@ -72,7 +73,7 @@ export default function PaginationScreen() {
         onPress={() => handleSetPage(page + 1)}
         disabled={!data?.next || isFetching}>
         <Text className={`mr-1 ${!data?.next ? 'text-gray-500' : 'text-white'}`}>Next</Text>
-        <IconSymbol name="chevron.right" size={16} color={!data?.next ? '#9ca3af' : '#ffffff'} />
+        <Octicons name="chevron-right" size={16} color={!data?.next ? '#9ca3af' : '#ffffff'} />
       </TouchableOpacity>
     </View>
   );

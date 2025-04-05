@@ -4,7 +4,7 @@ import { useLocalSearchParams, useFocusEffect, Link } from 'expo-router';
 import React, { useCallback } from 'react';
 import reportService from '@/services/report';
 import { names } from '@/state/server/queryKey';
-import { IconSymbol } from '@/components/ui/IconSymbol';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function ReportScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -32,7 +32,7 @@ export default function ReportScreen() {
     <View className="flex-1 p-4">
       <View className="mb-4">
         <Link href="./" className="text-lg text-blue-500">
-          <IconSymbol color="indigo" name="arrow.left" />
+          <Ionicons name="arrow-back" size={24} color="indigo" />
         </Link>
       </View>
 

@@ -1,5 +1,6 @@
-import React, { useCallback } from 'react';
-import { Text, View, Image, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
+import React, { useCallback, useRef } from 'react';
+import { Text, View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { LegendList } from "@legendapp/list"
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link, Stack, useFocusEffect } from 'expo-router';
 import movieService from '@/services/movie';
@@ -10,7 +11,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function MoviesScreen() {
   const queryClient = useQueryClient();
-  const firstTimeRef = React.useRef(true);
+  const firstTimeRef = useRef(true);
 
   const moviesQuery = useQuery<Movie[], Error>({
     queryKey: [names.movies],
@@ -145,7 +146,8 @@ export default function MoviesScreen() {
       )}
 
       {moviesQuery.status === 'success' && (
-        <FlatList
+        <LegendList
+          recycleItems
           data={moviesQuery.data}
           renderItem={renderMovieItem}
           keyExtractor={(movie) => movie.id.toString()}

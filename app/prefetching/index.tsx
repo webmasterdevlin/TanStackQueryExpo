@@ -1,4 +1,5 @@
-import { View, Text, FlatList } from 'react-native';
+import { View, Text } from 'react-native';
+import { LegendList } from "@legendapp/list"
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link, Stack } from 'expo-router';
 import reportService from '@/services/report';
@@ -56,7 +57,8 @@ export default function ReportsScreen() {
       )}
 
       {reportsQuery.data && (
-        <FlatList
+        <LegendList
+          recycleItems
           data={reportsQuery.data}
           keyExtractor={(item) => item.id.toString()}
           renderItem={renderReportItem}

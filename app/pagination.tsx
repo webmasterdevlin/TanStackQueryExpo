@@ -7,7 +7,7 @@ import { names } from '@/state/server/queryKey';
 import commodityService from '@/services/commodity';
 import Spinner from '@/components/Spinner';
 import { Commodity } from '@/models';
-import { FlatList } from 'react-native-gesture-handler';
+import { LegendList } from "@legendapp/list"
 
 export default function PaginationScreen() {
   const [page, setPage] = useState(1);
@@ -93,7 +93,8 @@ export default function PaginationScreen() {
         </View>
       )}
 
-      <FlatList
+      <LegendList
+        recycleItems
         data={data?.data || []}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}

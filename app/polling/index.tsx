@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { LegendList, LegendListRef, LegendListRenderItemProps } from "@legendapp/list"
+import { Text, View, TextInput, TouchableOpacity, FlatList } from 'react-native';
 import { Link, Stack } from 'expo-router';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useQuery } from '@tanstack/react-query';
@@ -65,8 +64,7 @@ export default function PollingScreen() {
 
       <Text className="mb-4 mt-2 text-lg font-bold">Todo List</Text>
 
-      <LegendList
-        recycleItems
+      <FlatList
         data={todoListQuery?.data || []}
         keyExtractor={(item) => String(item.id)}
         renderItem={({ item, index }) => (

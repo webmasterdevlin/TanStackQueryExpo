@@ -1,6 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import { Text, View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { LegendList } from "@legendapp/list"
+import { Text, View, Image, TouchableOpacity, ActivityIndicator, FlatList } from 'react-native';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link, Stack, useFocusEffect } from 'expo-router';
 import movieService from '@/services/movie';
@@ -146,8 +145,7 @@ export default function MoviesScreen() {
       )}
 
       {moviesQuery.status === 'success' && (
-        <LegendList
-          recycleItems
+        <FlatList
           data={moviesQuery.data}
           renderItem={renderMovieItem}
           keyExtractor={(movie) => movie.id.toString()}

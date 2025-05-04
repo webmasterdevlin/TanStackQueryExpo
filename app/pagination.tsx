@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, FlatList } from 'react-native';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Octicons from '@expo/vector-icons/Octicons';
@@ -7,8 +7,6 @@ import { names } from '@/state/server/queryKey';
 import commodityService from '@/services/commodity';
 import Spinner from '@/components/Spinner';
 import { Commodity } from '@/models';
-import { LegendList } from "@legendapp/list"
-
 export default function PaginationScreen() {
   const [page, setPage] = useState(1);
   const pageSize = 10;
@@ -93,8 +91,7 @@ export default function PaginationScreen() {
         </View>
       )}
 
-      <LegendList
-        recycleItems
+      <FlatList
         data={data?.data || []}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}

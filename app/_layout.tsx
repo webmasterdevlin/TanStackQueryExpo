@@ -12,7 +12,6 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import ReactQueryDevTools from '@/components/providers/ReactQueryDevTools';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useReactQueryDevTools } from '@dev-plugins/react-query';
 
 const queryClient = new QueryClient();
 
@@ -28,7 +27,6 @@ const appjsConfColors = {
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
-  useReactQueryDevTools(queryClient);
 
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({

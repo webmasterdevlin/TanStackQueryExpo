@@ -27,8 +27,6 @@ import Animated, {
   useDerivedValue,
   runOnJS,
 } from 'react-native-reanimated';
-import { Link } from 'expo-router';
-import Drawer from 'expo-router/drawer';
 
 export default function HomeScreen() {
   const { height } = useWindowDimensions();

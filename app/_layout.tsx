@@ -12,7 +12,8 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import ReactQueryDevTools from '@/components/providers/ReactQueryDevTools';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
+import { useSyncQueriesExternal } from 'react-query-external-sync';
+import { Platform } from 'react-native';
 const queryClient = new QueryClient();
 
 const appjsConfColors = {
@@ -27,6 +28,20 @@ const appjsConfColors = {
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
+  // Set up the sync hook - automatically disabled in production!
+  useSyncQueriesExternal({
+    queryClient,
+    socketURL: 'http://localhost:42831', // Default port for React Native DevTools
+    deviceName: Platform?.OS || 'web', // Platform detection
+    platform: Platform?.OS || 'web', // Use appropriate platform identifier
+    deviceId: Platform?.OS || 'web', // Use a PERSISTENT identifier (see note below)
+    extraDeviceInfo: {
+      // Optional additional info about your device
+      appVersion: '1.0.0',
+      // Add any relevant platform info
+    },
+    enableLogs: false,
+  });
 
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({

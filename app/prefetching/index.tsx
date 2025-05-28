@@ -34,7 +34,7 @@ export default function ReportsScreen() {
         params: { id: item.id },
       }}
       onLayout={() => {
-        if (Number(item.id) < 20) handlePreLoad(item.id);
+        if (Number(item.id) < 15) handlePreLoad(item.id);
       }}
       className="border-b border-gray-200 py-3">
       <Text className="text-lg text-blue-700">{item.title}</Text>

@@ -15,7 +15,7 @@ export default function ReportsScreen() {
 
   const queryClient = useQueryClient();
 
-  const handlePreLoad = async (reportId: string) => {
+  const handlePreFetch = async (reportId: string) => {
     /* When you know or suspect that a certain piece of data will be needed,
   you can use prefetching to populate the cache ahead of time,
   leading to a faster experience for the user. */
@@ -34,7 +34,7 @@ export default function ReportsScreen() {
         params: { id: item.id },
       }}
       onLayout={() => {
-        if (Number(item.id) < 15) handlePreLoad(item.id);
+        if (Number(item.id) < 15) handlePreFetch(item.id);
       }}
       className="border-b border-gray-200 py-3">
       <Text className="text-lg text-blue-700">{item.title}</Text>

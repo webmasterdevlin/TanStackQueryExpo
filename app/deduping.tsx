@@ -10,13 +10,10 @@ export default function DedupingScreen() {
   // Reusable query - TanStack Query handles deduplication automatically
   const myQuery = useDedupeQuery();
 
-  // Function to fetch users
-  const fetchUsers = async () => {
-    await dedupeService.getUsers();
-  };
-
-  // Similar to ngOnInit
   useEffect(() => {
+    const fetchUsers = async () => {
+      await dedupeService.getUsers();
+    };
     fetchUsers();
   }, []);
 

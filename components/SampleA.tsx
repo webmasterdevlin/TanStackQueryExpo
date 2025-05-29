@@ -8,12 +8,10 @@ export default function SampleA() {
   // TanStack Query for deduplication
   const myQuery = useDedupeQuery();
 
-  // Function to fetch users
-  const fetchUsers = async () => {
-    await dedupeService.getUsers();
-  };
-
   useEffect(() => {
+    const fetchUsers = async () => {
+      await dedupeService.getUsers();
+    };
     fetchUsers();
   }, []);
 

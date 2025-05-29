@@ -25,6 +25,7 @@ export default function DedupingScreen() {
       <View className="flex-row items-center p-4">
         <Text className="text-xl font-bold">HTTP Requests in Screen</Text>
         {myQuery.status === 'pending' && <Spinner />}
+        {myQuery.isSuccess && <Text className='ml-4 text-3xl'>🦬🇵🇱</Text>}
       </View>
       <SampleA />
       <SampleB />

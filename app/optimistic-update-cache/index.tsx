@@ -40,15 +40,13 @@ export default function MoviesScreen() {
       const previousMovies = queryClient.getQueryData<Movie[]>([names.movies]);
 
       // Optimistically update by removing the movie from the list
-      if (previousMovies) {
-        queryClient.setQueryData<Movie[]>(
-          [names.movies],
-          previousMovies.filter((m) => m.id !== id)
-        );
+      queryClient.setQueryData<Movie[]>(
+        [names.movies],
+        (old) => old?.filter((m) => m.id !== id) ?? []
+      );
 
-        // Also remove the individual movie query if it exists
-        queryClient.removeQueries({ queryKey: [names.movie, id] });
-      }
+      // Remove the individual movie query if it exists
+      queryClient.removeQueries({ queryKey: [names.movie, id] });
 
       return { previousMovies };
     },

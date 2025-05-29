@@ -14,7 +14,17 @@ import ReactQueryDevTools from '@/components/providers/ReactQueryDevTools';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useSyncQueriesExternal } from 'react-query-external-sync';
 import { Platform } from 'react-native';
-const queryClient = new QueryClient();
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // 3 total attempts (1 initial + 2 retries)
+      retry: 2,
+      // 0s -> 1s, 1s → 5s
+      retryDelay: attemptIndex => Math.min(1000 * 5 ** attemptIndex, 10000),
+    }
+  }
+});
 
 const appjsConfColors = {
   primaryBlue100: '#484dfc',

@@ -15,5 +15,8 @@ export function useTodoMutation() {
       //   return cache ? [...cache, data] : [data];
       // });
     },
+    onError: (error) => {
+      console.error('Failed to add todo:', error);
+    },
   });
 }

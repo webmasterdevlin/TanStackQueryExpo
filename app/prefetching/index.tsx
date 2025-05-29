@@ -6,14 +6,14 @@ import { Report } from '@/models';
 import { names } from '@/state/server/queryKey';
 
 export default function ReportsScreen() {
-  const queryClient = useQueryClient();
-
   const reportsQuery = useQuery({
     queryKey: [names.reports],
     queryFn: () => reportService.getReports(),
     staleTime: Infinity, // Reports won't be considered stale
     gcTime: Infinity, // Reports won't be garbage collected
   });
+
+  const queryClient = useQueryClient();
 
   const handlePreLoad = async (reportId: string) => {
     /* When you know or suspect that a certain piece of data will be needed,

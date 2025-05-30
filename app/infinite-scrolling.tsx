@@ -15,7 +15,7 @@ import { Commodity } from '@/models';
 import { useIsFocused } from '@react-navigation/native';
 
 export default function InfiniteScrollingScreen() {
-  const PAGE_SIZE = 7;
+  const ITEMS_PER_PAGE = 7;
   const flatListRef = useRef<FlatList>(null);
 
   // To track the last visible item before pagination
@@ -42,7 +42,7 @@ export default function InfiniteScrollingScreen() {
   } = useInfiniteQuery({
     queryKey: ["commodities"],
     queryFn: async ({ pageParam }) => {
-      return await commodityService.getCommodities(pageParam, PAGE_SIZE);
+      return await commodityService.getCommodities(pageParam, ITEMS_PER_PAGE);
     },
     initialPageParam: 1,
     getPreviousPageParam: (firstPage) => firstPage.prev ?? undefined,

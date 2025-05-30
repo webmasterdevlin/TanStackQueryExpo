@@ -5,7 +5,6 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import { useQuery } from '@tanstack/react-query';
 import { cn } from '@/utilities/style';
 import todoService from '@/services/todo';
-import { names } from '@/state/server/queryKey';
 
 export default function PollingScreen() {
   const [intervalMs, setIntervalMs] = useState(10000);
@@ -13,7 +12,7 @@ export default function PollingScreen() {
   const [isValidInput, setIsValidInput] = useState(true);
 
   const todoListQuery = useQuery({
-    queryKey: [names.todos],
+    queryKey: ["todos"],
     queryFn: todoService.getTodos,
     refetchInterval: Number(inputValue),
   });

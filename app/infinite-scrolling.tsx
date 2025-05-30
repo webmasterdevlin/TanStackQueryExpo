@@ -10,7 +10,6 @@ import {
   ViewToken,
 } from 'react-native';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { names } from '@/state/server/queryKey';
 import commodityService from '@/services/commodity';
 import { Commodity } from '@/models';
 import { useIsFocused } from '@react-navigation/native';
@@ -41,7 +40,7 @@ export default function InfiniteScrollingScreen() {
     error,
     refetch,
   } = useInfiniteQuery({
-    queryKey: [names.commodities],
+    queryKey: ["commodities"],
     queryFn: async ({ pageParam }) => {
       return await commodityService.getCommodities(pageParam, PAGE_SIZE);
     },

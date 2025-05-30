@@ -3,7 +3,6 @@ import { Text, View, TouchableOpacity, FlatList } from 'react-native';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Octicons from '@expo/vector-icons/Octicons';
-import { names } from '@/state/server/queryKey';
 import commodityService from '@/services/commodity';
 import Spinner from '@/components/Spinner';
 import { Commodity } from '@/models';
@@ -12,7 +11,7 @@ export default function PaginationScreen() {
   const pageSize = 10;
 
   const { data, isRefetching, isFetching, isError, error, isPending } = useQuery({
-    queryKey: [names.commodities, page, pageSize],
+    queryKey: ["commodities", page, pageSize],
     queryFn: () => commodityService.getCommodities(page, pageSize),
     placeholderData: keepPreviousData,
     staleTime: 1000 * 60 * 1, // 1 minute

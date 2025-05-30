@@ -2,13 +2,12 @@ import { View, Text, ActivityIndicator } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { useLocalSearchParams, Stack } from 'expo-router';
 import reportService from '@/services/report';
-import { names } from '@/state/server/queryKey';
 
 export default function ReportScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
   const reportQuery = useQuery({
-    queryKey: [names.report, id],
+    queryKey: ["report", id],
     queryFn: () => reportService.getReportById(id),
     enabled: Number(id) > 0, // Only fetch if ID is valid
   });

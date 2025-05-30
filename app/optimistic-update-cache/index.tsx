@@ -3,7 +3,6 @@ import { Text, View, Image, TouchableOpacity, ActivityIndicator, FlatList } from
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link, Stack, useFocusEffect } from 'expo-router';
 import movieService from '@/services/movie';
-import { names } from '@/state/server/queryKey';
 import { Movie } from '@/models';
 import Octicons from '@expo/vector-icons/Octicons';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -13,7 +12,7 @@ export default function MoviesScreen() {
   const firstTimeRef = useRef(true);
 
   const moviesQuery = useQuery<Movie[], Error>({
-    queryKey: [names.movies],
+    queryKey: ["movies"],
     queryFn: () => movieService.getMovies(),
   });
 
@@ -29,24 +28,24 @@ export default function MoviesScreen() {
   );
 
   const deleteMovieMutation = useMutation({
-    mutationKey: [names.movies, 'delete'],
+    mutationKey: ["movies", 'delete'],
     mutationFn: (id: string) => movieService.deleteMovie(id),
     // Implement optimistic updates
     onMutate: async (id: string) => {
       // Cancel any outgoing refetches
-      await queryClient.cancelQueries({ queryKey: [names.movies] });
+      await queryClient.cancelQueries({ queryKey: ["movies"] });
 
       // Snapshot the previous value
-      const previousMovies = queryClient.getQueryData<Movie[]>([names.movies]);
+      const previousMovies = queryClient.getQueryData<Movie[]>(["movies"]);
 
       // Optimistically update by removing the movie from the list
       queryClient.setQueryData<Movie[]>(
-        [names.movies],
+        ["movies"],
         (old) => old?.filter((m) => m.id !== id) ?? []
       );
 
       // Remove the individual movie query if it exists
-      queryClient.removeQueries({ queryKey: [names.movie, id] });
+      queryClient.removeQueries({ queryKey: ["movie", id] });
 
       return { previousMovies };
     },
@@ -56,12 +55,12 @@ export default function MoviesScreen() {
 
       // Rollback the cache on error
       if (context?.previousMovies) {
-        queryClient.setQueryData<Movie[]>([names.movies], context.previousMovies);
+        queryClient.setQueryData<Movie[]>(["movies"], context.previousMovies);
       }
     },
     onSettled: () => {
       // Invalidate queries after mutation is settled
-      queryClient.invalidateQueries({ queryKey: [names.movies] });
+      queryClient.invalidateQueries({ queryKey: ["movies"] });
     },
   });
 
@@ -98,7 +97,7 @@ export default function MoviesScreen() {
       <View className="mt-2 flex-1">
         <Text
           className={
-            queryClient.getQueryData([names.movie, movie.id])
+            queryClient.getQueryData(["movie", movie.id])
               ? 'font-bold text-indigo-500'
               : 'font-bold'
           }>

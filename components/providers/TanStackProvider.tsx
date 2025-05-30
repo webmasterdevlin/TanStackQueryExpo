@@ -1,3 +1,7 @@
+/*
+NOTE: I am not using this for simple demo purposes on the conference
+*/
+
 import { QueryClient } from '@tanstack/react-query';
 import { PropsWithChildren, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';

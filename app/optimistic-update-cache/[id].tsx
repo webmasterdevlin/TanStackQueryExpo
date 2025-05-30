@@ -2,14 +2,13 @@ import { View, Text, Image, ActivityIndicator } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { useLocalSearchParams, Link, Stack } from 'expo-router';
 import movieService from '@/services/movie';
-import { names } from '@/state/server/queryKey';
 import { Movie } from '@/models';
 
 export default function MovieScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
   const movieQuery = useQuery<Movie, Error>({
-    queryKey: [names.movie, id],
+    queryKey: ["movie", id],
     queryFn: () => movieService.getMovieById(id),
     enabled: Number(id) > 0, // Only fetch if ID is valid
   });

@@ -20,7 +20,7 @@ const queryClient = new QueryClient({
     queries: {
       // 3 total attempts (1 initial + 2 retries)
       retry: 2,
-      // 0s -> 1s, 1s → 5s
+      // 0s -> 1s, 1s → 5s. Little resiliency 😁
       retryDelay: attemptIndex => Math.min(1000 * 5 ** attemptIndex, 10000),
     }
   }

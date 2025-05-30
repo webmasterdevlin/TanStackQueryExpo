@@ -120,16 +120,6 @@ export default function RootLayout() {
               }}
             />
             <Drawer.Screen
-              name="optimistic-update-cache"
-              options={{
-                drawerLabel: 'Optimistic Update',
-                title: 'Optimistic Update',
-                drawerIcon: ({ color, size }) => (
-                  <Ionicons name="flash-outline" size={size} color={color} />
-                ),
-              }}
-            />
-            <Drawer.Screen
               name="polling"
               options={{
                 drawerLabel: 'Polling',
@@ -156,6 +146,16 @@ export default function RootLayout() {
                 title: 'Infinite Scrolling',
                 drawerIcon: ({ color, size }) => (
                   <Ionicons name="infinite-outline" size={size} color={color} />
+                ),
+              }}
+            />
+            <Drawer.Screen
+              name="optimistic-update-cache"
+              options={{
+                drawerLabel: 'Optimistic Update',
+                title: 'Optimistic Update',
+                drawerIcon: ({ color, size }) => (
+                  <Ionicons name="flash-outline" size={size} color={color} />
                 ),
               }}
             />

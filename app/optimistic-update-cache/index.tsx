@@ -1,11 +1,12 @@
 import React, { useCallback, useRef } from 'react';
-import { Text, View, Image, TouchableOpacity, ActivityIndicator, FlatList } from 'react-native';
+import { Text, View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link, Stack, useFocusEffect } from 'expo-router';
 import movieService from '@/services/movie';
 import { Movie } from '@/models';
 import Octicons from '@expo/vector-icons/Octicons';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { LegendList } from '@legendapp/list';
 
 export default function MoviesScreen() {
   const queryClient = useQueryClient();
@@ -142,7 +143,7 @@ export default function MoviesScreen() {
       )}
 
       {moviesQuery.status === 'success' && (
-        <FlatList
+        <LegendList
           data={moviesQuery.data}
           renderItem={renderMovieItem}
           keyExtractor={(movie) => movie.id.toString()}

@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { Text, View, TouchableOpacity, FlatList } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
+import { LegendList, LegendListRef, LegendListRenderItemProps } from "@legendapp/list"
+
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Octicons from '@expo/vector-icons/Octicons';
@@ -90,7 +92,7 @@ export default function PaginationScreen() {
         </View>
       )}
 
-      <FlatList
+      <LegendList
         data={data?.data || []}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
